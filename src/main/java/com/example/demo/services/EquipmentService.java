@@ -25,7 +25,6 @@ public class EquipmentService {
             equipment.setName(updatedEquipment.getName());
             equipment.setDescription(updatedEquipment.getDescription());
             equipment.setStatus(updatedEquipment.getStatus());
-            equipment.setAdmin(updatedEquipment.getAdmin());
             return equipmentRepository.save(equipment);
         }
         throw new RuntimeException("Equipment not found with id " + id);

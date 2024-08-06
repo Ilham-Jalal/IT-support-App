@@ -1,9 +1,7 @@
 package com.example.demo.config;
 
-import com.example.demo.Enum.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,16 +11,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.security.Key;
-import java.util.List;
+
+import static com.example.demo.config.JwtAuth.SECRET_KEY;
 
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private final UserDetailsService userDetailsService;
+
 
     public JwtAuthorizationFilter(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -33,19 +32,15 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         String authorizationToken = request.getHeader("Authorization");
         if (authorizationToken != null && authorizationToken.startsWith("Bearer ")) {
             try {
+                System.out.println("//////////////////////::");
                 String jwt = authorizationToken.substring(7);
-                Claims claims = Jwts.parser()
-                        .setSigningKey(JwtAuth.SECRET_KEY)
-                        .build()
-                        .parseClaimsJws(jwt)
-                        .getBody();
+                Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).build().parseClaimsJws(jwt).getBody();
                 String username = claims.getSubject();
+                System.out.println("/////////"+username);
+                System.out.println("daaaz lhnaaa");
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        username,
-                        null,
-                        userDetails.getAuthorities()
-                );
+                        userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
@@ -54,5 +49,4 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
-
 }

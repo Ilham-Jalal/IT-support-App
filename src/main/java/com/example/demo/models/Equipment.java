@@ -18,13 +18,9 @@ public class Equipment {
     @Enumerated(EnumType.STRING)
     private EquipmentStatus status;
 
-    @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private User admin;
+
 
     @OneToMany(mappedBy = "equipment", cascade = CascadeType.ALL)
     private List<Incident> incidents;
 
-    @OneToMany(mappedBy = "equipment", cascade = CascadeType.ALL)
-    private List<Ticket> tickets;
 }

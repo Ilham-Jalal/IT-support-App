@@ -12,6 +12,7 @@ public class Incident {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private String description;
     private Date dateDetected;
     @Enumerated(EnumType.STRING)
@@ -24,4 +25,7 @@ public class Incident {
     @ManyToOne
     @JoinColumn(name = "equipment_id")
     private Equipment equipment;
+
+    @OneToOne(mappedBy = "incident")
+    private Ticket ticket;
 }

@@ -23,9 +23,10 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "technician_id")
-    private User technician;  // Assuming Technician is a User with TECHNICIAN role
+    private User technician;
 
-    @ManyToOne
-    @JoinColumn(name = "equipment_id")
-    private Equipment equipment;
+
+    @OneToOne
+    @JoinColumn(name = "incident_id")
+    private Incident incident;
 }

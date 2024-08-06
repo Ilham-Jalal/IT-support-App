@@ -1,6 +1,5 @@
 package com.example.demo.models;
 
-import com.example.demo.Enum.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,28 +8,35 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String username;
+    @Column(unique = true)
     private String email;
     private String password;
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
+    @Column
+    private String role;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role != null ? List.of(new SimpleGrantedAuthority("ROLE_" + role.name())) : List.of();
+        System.out.println("////////////////////////////");
+        System.out.println("////////::rolee"+role);
+
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role));
     }
 
     @Override
@@ -52,4 +58,8 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+//    public String getUserType() {
+//        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+//    }
 }

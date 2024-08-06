@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-import com.example.demo.Enum.UserRole;
 import com.example.demo.models.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -26,20 +26,9 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-//    public User signUp(User user) {
-//        String hashedPassword = passwordEncoder.encode(user.getPassword());
-//        user.setPassword(hashedPassword);
-//        user.setRole(UserRole.USER);
-//        return userRepository.save(user);
-//    }
-
     public User signUp(User user) {
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
-        if (user.getRole() == null) {
-            user.setRole(UserRole.USER); 
-        }
         return userRepository.save(user);
     }
-
 }
