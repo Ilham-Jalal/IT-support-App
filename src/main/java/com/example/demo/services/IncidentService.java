@@ -1,8 +1,11 @@
 package com.example.demo.services;
 
 import com.example.demo.Enum.IncidentStatus;
+import com.example.demo.models.Equipment;
 import com.example.demo.models.Incident;
 import com.example.demo.repository.IncidentRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +13,11 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class IncidentService {
 
-    @Autowired
-    private IncidentRepository incidentRepository;
+    private final IncidentRepository incidentRepository;
 
     public Incident reportIncident(Incident incident) {
         incident.setDateDetected(new Date());
@@ -28,6 +32,17 @@ public class IncidentService {
     }
 
     public List<Incident> getIncidentsByEquipment(Long equipmentId) {
-        return incidentRepository.findByEquipmentId(equipmentId);
+        return incidentRepository.findByEquipmentList_Id(equipmentId);
     }
+
+
+    public void deleteIncident(Long id){incidentRepository.deleteById(id);}
+
+//    public List<Incident> getIncidentsByUser(Long userId) {
+//        return incidentRepository.findByUserId(userId);
+//    }
+
+//    public List<Incident> getIncidentsByTechnician(Long technicianId) {
+//        return incidentRepository.findByUserId(technicianId);
+//    }
 }

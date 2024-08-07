@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.models.TechnicianIT;
 import com.example.demo.models.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,9 @@ public class UserService {
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
         return userRepository.save(user);
+    }
+
+    public TechnicianIT findTechnicianById(Long id) {
+        return userRepository.findTechnicianById(id).orElseThrow(() -> new RuntimeException("Technician not found"));
     }
 }

@@ -15,11 +15,6 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("USER")
 public class Utilisateur extends User {
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "utilisateur")
     private List<Ticket> ticketList;
-
-    @OneToMany(mappedBy = "user")
-    private List<Incident> incidents;
-
-
 }

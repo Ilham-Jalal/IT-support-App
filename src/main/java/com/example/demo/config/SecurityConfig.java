@@ -34,8 +34,8 @@ public class SecurityConfig {
                         expressionInterceptUrlRegistry
                                 .requestMatchers("/user/signup").permitAll()
                                 .requestMatchers("/login").permitAll()
-                                .requestMatchers("/api/incidents/**").hasRole("USER")
-                                .requestMatchers("/api/equipments/**").hasRole("ADMIN")
+                                .requestMatchers("/user/**").hasRole("USER")
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/technician/**").hasRole("TECHNICIAN")
                                 .anyRequest().authenticated()
                 )

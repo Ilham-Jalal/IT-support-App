@@ -1,12 +1,18 @@
 package com.example.demo.models;
 
 import com.example.demo.Enum.TicketStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+
 import java.util.Date;
 
 @Entity
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,15 +24,22 @@ public class Ticket {
     private TicketStatus status;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
-    private User user;
+    private Utilisateur utilisateur;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "technician_id")
     private User technician;
 
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name="equipment_id")
+    private Equipment equipment;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "incident_id")
     private Incident incident;
 }

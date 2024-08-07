@@ -16,7 +16,7 @@ import java.util.List;
 @DiscriminatorValue("TECHNICIAN")
 public class TechnicianIT extends User {
     @Setter
-    String role="TECHNICIAN";
+    private static final String ROLE = "TECHNICIAN";
 
     @OneToMany(mappedBy = "technician")
     private List<Ticket> ticketList;
