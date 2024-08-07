@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,6 +32,7 @@ public class Incident {
     )
     private Set<Equipment> equipmentList = new HashSet<>();
 
-    @OneToOne(mappedBy = "incident")
-    private Ticket ticket;
+    @OneToMany(mappedBy = "incident")
+    @JsonIgnore
+    private List<Ticket> tickets;
 }
