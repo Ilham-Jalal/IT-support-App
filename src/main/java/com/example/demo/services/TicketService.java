@@ -3,14 +3,13 @@ package com.example.demo.services;
 import com.example.demo.Enum.TicketStatus;
 import com.example.demo.models.*;
 import com.example.demo.repository.IncidentRepository;
-import com.example.demo.repository.TechnicianRepository;
 import com.example.demo.repository.TicketRepository;
+import com.example.demo.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -19,7 +18,7 @@ import java.util.List;
 public class TicketService {
 
     private final TicketRepository ticketRepository;
-    private final TechnicianRepository technicianRepository;
+    private final UserRepository userRepository;
     private final IncidentRepository incidentRepository;
 
 //    public Ticket createTicket(Ticket ticket) {
@@ -45,11 +44,22 @@ public class TicketService {
         return ticketRepository.save(ticket);
     }
 
-    public Ticket assignTicket(Long id, Long technicianId) {
-        Ticket ticket = ticketRepository.findById(id).orElseThrow();
-        TechnicianIT technician = technicianRepository.findById(technicianId).orElseThrow();
+//    public Ticket assignTicket(Long id, Long userId) {
+//        Ticket ticket = ticketRepository.findById(id).orElseThrow();
+//        User technician =(TechnicianIT) userRepository.findTechnicianById(userId);
+//        ticket.setTechnician(technician);
+//        return ticketRepository.save(ticket);
+//    }
+
+
+    public List<Ticket> assignTicket(Long id, Long userId) {
+        Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new RuntimeException("Ticket not found"));
+        TechnicianIT technician = userRepository.findById(userId)
+                .filter(TechnicianIT.class::isInstance)
+                .map(TechnicianIT.class::cast)
+                .orElseThrow(() -> new RuntimeException("Technician not found"));
         ticket.setTechnician(technician);
-        return ticketRepository.save(ticket);
+        return Collections.singletonList(ticketRepository.save(ticket));
     }
 
     public List<Ticket> getTicketsByUser(Long userId) {

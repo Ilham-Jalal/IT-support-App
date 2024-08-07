@@ -180,9 +180,10 @@ public class MainController {
          Ticket newTicket = ticketService.saveTicket(supportTicket, incidentId, user);
           return ResponseEntity.ok(newTicket);
 }
-    @PutMapping("admin/tickets/{id}/assign")
-    public ResponseEntity<Ticket> assignTicket(@PathVariable Long id, @RequestParam Long technicianId) {
-        return ResponseEntity.ok(ticketService.assignTicket(id, technicianId));
+    @PatchMapping("admin/tickets/{id}/assign/{userId}")
+    public ResponseEntity<List<Ticket>> assignTicket(@PathVariable Long id, @PathVariable Long userId) {
+        List<Ticket> ticketList = ticketService.assignTicket(id, userId);
+        return ResponseEntity.ok(ticketList);
     }
 
     @GetMapping("user/tickets")
