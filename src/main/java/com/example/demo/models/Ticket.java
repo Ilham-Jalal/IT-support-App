@@ -38,7 +38,7 @@ public class Ticket {
     @JoinColumn(name="equipment_id")
     private Equipment equipment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name = "incident_id")
     private Incident incident;

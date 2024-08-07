@@ -24,7 +24,6 @@ public class Incident {
 
     @ManyToMany
     @JsonIgnore
-    @JsonBackReference
     @JoinTable(
             name = "incident_equipment",
             joinColumns = @JoinColumn(name = "incident_id"),

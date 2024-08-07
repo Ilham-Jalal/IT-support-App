@@ -32,7 +32,7 @@ public class IncidentService {
     }
 
     public List<Incident> getIncidentsByEquipment(Long equipmentId) {
-        return incidentRepository.findByEquipmentList_Id(equipmentId);
+        return incidentRepository.findIncidentByEquipmentId(equipmentId);
     }
 
 

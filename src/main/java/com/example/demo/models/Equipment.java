@@ -24,7 +24,6 @@ public class Equipment {
 
     @ManyToMany(mappedBy = "equipmentList") // Corrected mappedBy
     @JsonIgnore
-    @JsonBackReference
     private Set<Incident> incidents = new HashSet<>();
 
     @OneToMany(mappedBy = "equipment")

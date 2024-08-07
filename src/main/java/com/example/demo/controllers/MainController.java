@@ -81,9 +81,10 @@ public class MainController {
         return ResponseEntity.ok(updatedIncident);
     }
 
-    @GetMapping("admin/incidents/equipment/{equipmentId}")
+    @GetMapping("/admin/equipment/{equipmentId}/incidents")
     public ResponseEntity<List<Incident>> getIncidentsByEquipment(@PathVariable Long equipmentId) {
-        return ResponseEntity.ok(incidentService.getIncidentsByEquipment(equipmentId));
+        List<Incident> incidents = incidentService.getIncidentsByEquipment(equipmentId);
+        return ResponseEntity.ok(incidents);
     }
 
     // User Management
