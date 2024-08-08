@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-@DiscriminatorValue("TECHNICIAN")
 public class TechnicianIT extends User {
     @Setter
     private static final String ROLE = "TECHNICIAN";

@@ -38,11 +38,4 @@ public class IncidentService {
 
     public void deleteIncident(Long id){incidentRepository.deleteById(id);}
 
-//    public List<Incident> getIncidentsByUser(Long userId) {
-//        return incidentRepository.findByUserId(userId);
-//    }
-
-//    public List<Incident> getIncidentsByTechnician(Long technicianId) {
-//        return incidentRepository.findByUserId(technicianId);
-//    }
 }

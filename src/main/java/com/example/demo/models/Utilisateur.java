@@ -15,7 +15,6 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-@DiscriminatorValue("USER")
 public class Utilisateur extends User {
     @OneToMany(mappedBy = "utilisateur")
     @JsonIgnore

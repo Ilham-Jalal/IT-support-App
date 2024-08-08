@@ -1,15 +1,18 @@
 package com.example.demo.controllers;
 
 import com.example.demo.Enum.IncidentStatus;
+import com.example.demo.Enum.Role;
 import com.example.demo.Enum.TicketStatus;
 import com.example.demo.config.JwtAuth;
 import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.SignUpRequest;
 import com.example.demo.models.*;
 import com.example.demo.services.EquipmentService;
 import com.example.demo.services.IncidentService;
 import com.example.demo.services.TicketService;
 import com.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -89,11 +92,12 @@ public class MainController {
 
     // User Management
 
-    @PostMapping("/user/signup")
-    public ResponseEntity<Void> signup(@RequestBody Utilisateur utilisateur) {
-        userService.signUp(utilisateur);
-        return ResponseEntity.ok().build();
+    @PostMapping("/signup/{role}")
+    public ResponseEntity<User> signUp(@PathVariable Role role, @RequestBody SignUpRequest signUpRequest) {
+        User createdUser = userService.signUp(role, signUpRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
@@ -111,76 +115,16 @@ public class MainController {
 
 
 
-//    @GetMapping("/user/incidents")
-//    public ResponseEntity<List<Incident>> getIncidentsByUser() {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String username = auth.getName();
-//        User user = userService.findByUsername(username);
-//        return ResponseEntity.ok(incidentService.getIncidentsByUser(user.getId()));
-//    }
 
-    // Ticket Management
-
-//    @PostMapping("/user/tickets")
-//    public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String username = auth.getName();
-////        Utilisateur utilisateur = userService.findByUsername(username);
-////        ticket.setUtilisateur(utilisateur);
-//        return ResponseEntity.ok(ticketService.createTicket(ticket));
-//    }
-//
-//    @PutMapping("admin/tickets/{id}")
-//    public ResponseEntity<Ticket> updateTicketStatus(@PathVariable Long id, @RequestParam TicketStatus status) {
-//        return ResponseEntity.ok(ticketService.updateTicketStatus(id, status));
-//    }
-//
-//    @GetMapping("user/tickets")
-//    public ResponseEntity<List<Ticket>> getTicketsByUser() {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String username = auth.getName();
-//        User user = userService.findByUsername(username);
-//        return ResponseEntity.ok(ticketService.getTicketsByUser(user.getId()));
-//    }
-//
-//    @PutMapping("admin/tickets/{id}/assign")
-//    public ResponseEntity<Ticket> assignTicket(@PathVariable Long id, @RequestParam Long technicianId) {
-//        TechnicianIT technician = userService.findTechnicianById(technicianId);
-//        return ResponseEntity.ok(ticketService.assignTicket(id, technician));
-//    }
-//
-//    @GetMapping("technician/tickets")
-//    public ResponseEntity<List<Ticket>> getTicketsByTechnician() {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String username = auth.getName();
-//        TechnicianIT technician = (TechnicianIT) userService.findByUsername(username);
-//        return ResponseEntity.ok(ticketService.getTicketsByTechnician(technician.getId()));
-//    }
-//
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<String> handleException(Exception e) {
-//        return ResponseEntity.status(500).body(e.getMessage());
-//    }
-
-    // Ticket Management
-
-//    @PostMapping("user/tickets")
-//    public ResponseEntity<Ticket> createTicket(@RequestBody Ticket ticket) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        String username = auth.getName();
-//        Utilisateur utilisateur = (Utilisateur) userService.findByUsername(username);
-//        ticket.setUtilisateur(utilisateur);
-//        return ResponseEntity.ok(ticketService.createTicket(ticket));
-//    }
-        @PostMapping("user/{incidentId}/tickets")
-        public ResponseEntity<Ticket> addTicket(@RequestBody Ticket supportTicket, @PathVariable Long incidentId) {
-         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-         String username = authentication.getName();
-         User user = userService.findByUsername(username);
-         Ticket newTicket = ticketService.saveTicket(supportTicket, incidentId, user);
-          return ResponseEntity.ok(newTicket);
-}
-    @PatchMapping("admin/tickets/{id}/assign/{userId}")
+    @PostMapping("user/{incidentId}/tickets")
+    public ResponseEntity<Ticket> addTicket(@RequestBody Ticket supportTicket, @PathVariable Long incidentId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userService.findByUsername(username);
+        Ticket newTicket = ticketService.saveTicket(supportTicket, incidentId, user);
+        return ResponseEntity.ok(newTicket);
+    }
+    @PutMapping("admin/tickets/{id}/assign/{userId}")
     public ResponseEntity<List<Ticket>> assignTicket(@PathVariable Long id, @PathVariable Long userId) {
         List<Ticket> ticketList = ticketService.assignTicket(id, userId);
         return ResponseEntity.ok(ticketList);
@@ -203,7 +147,7 @@ public class MainController {
     }
 
     @PutMapping("technician/tickets/{id}")
-    public ResponseEntity<Ticket> updateTicketStatus(@PathVariable Long id, @RequestParam TicketStatus status) {
+    public ResponseEntity<Ticket> updateTicketStatus(@PathVariable Long id, @RequestBody TicketStatus status) {
         return ResponseEntity.ok(ticketService.updateTicketStatus(id, status));
     }
 }

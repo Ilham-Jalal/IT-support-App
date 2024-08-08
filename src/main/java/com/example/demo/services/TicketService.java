@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,19 +23,13 @@ public class TicketService {
     private final UserRepository userRepository;
     private final IncidentRepository incidentRepository;
 
-//    public Ticket createTicket(Ticket ticket) {
-//        ticket.setDateCreated(new Date());
-//        ticket.setStatus(TicketStatus.OPEN);
-//        return ticketRepository.save(ticket);
-//    }
 
     public Ticket saveTicket(Ticket ticket, Long incidentId, User user) {
         Incident incident = incidentRepository.findById(incidentId)
                 .orElseThrow(() -> new RuntimeException("Incident not found"));
         ticket.setIncident(incident);
-        ticket.setUtilisateur((Utilisateur) user); // Cast User to Utilisateur if necessary
-//    ticket.setDateCreated(new Date());
-//    ticket.setStatus(TicketStatus.OPEN);
+        ticket.setUtilisateur((Utilisateur) user);
+        ticket.setStatus(TicketStatus.OPEN);
         return ticketRepository.save(ticket);
     }
 
@@ -43,13 +39,6 @@ public class TicketService {
         ticket.setStatus(status);
         return ticketRepository.save(ticket);
     }
-
-//    public Ticket assignTicket(Long id, Long userId) {
-//        Ticket ticket = ticketRepository.findById(id).orElseThrow();
-//        User technician =(TechnicianIT) userRepository.findTechnicianById(userId);
-//        ticket.setTechnician(technician);
-//        return ticketRepository.save(ticket);
-//    }
 
 
     public List<Ticket> assignTicket(Long id, Long userId) {

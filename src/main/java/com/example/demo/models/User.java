@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.example.demo.Enum.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +16,6 @@ import java.util.List;
 @Setter
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 public class User implements UserDetails {
 
     @Id
@@ -27,8 +27,8 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
-    @Column
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 
     @Override

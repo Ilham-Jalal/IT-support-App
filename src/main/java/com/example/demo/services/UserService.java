@@ -1,7 +1,11 @@
 package com.example.demo.services;
 
+import com.example.demo.Enum.Role;
+import com.example.demo.dto.SignUpRequest;
+import com.example.demo.models.AdminIT;
 import com.example.demo.models.TechnicianIT;
 import com.example.demo.models.User;
+import com.example.demo.models.Utilisateur;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,13 +33,32 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public User signUp(User user) {
-        String hashedPassword = passwordEncoder.encode(user.getPassword());
+    public User signUp(Role role, SignUpRequest signUpRequest) {
+        String hashedPassword = passwordEncoder.encode(signUpRequest.getPassword());
+
+        User user;
+        switch (role) {
+            case ADMIN:
+                user = new AdminIT();
+                user.setRole(Role.ADMIN);
+                break;
+            case USER:
+                user = new Utilisateur();
+                user.setRole(Role.USER);
+                break;
+            case TECHNICIAN:
+                user = new TechnicianIT();
+                user.setRole(Role.TECHNICIAN);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid user type");
+        }
+
+        user.setUsername(signUpRequest.getUsername());
+        user.setEmail(signUpRequest.getEmail());
         user.setPassword(hashedPassword);
+
         return userRepository.save(user);
     }
 
-    public List <TechnicianIT> findTechnicianById(Long id) {
-        return userRepository.findTechnicianById(id);
-    }
 }
