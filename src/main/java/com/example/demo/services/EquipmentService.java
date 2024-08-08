@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.Exeption.EquipmentExeptionNotFound;
 import com.example.demo.models.Equipment;
 import com.example.demo.repository.EquipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class EquipmentService {
             equipment.setStatus(updatedEquipment.getStatus());
             return equipmentRepository.save(equipment);
         }
-        throw new RuntimeException("Equipment not found with id " + id);
+        throw new EquipmentExeptionNotFound("Equipment not found with id " + id);
     }
 
     public void deleteEquipment(Long id) {

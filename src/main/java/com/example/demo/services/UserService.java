@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.Enum.Role;
+import com.example.demo.Exeption.UserNotFoundExeption;
 import com.example.demo.dto.SignUpRequest;
 import com.example.demo.models.AdminIT;
 import com.example.demo.models.TechnicianIT;
@@ -26,7 +27,7 @@ public class UserService {
     }
 
     public User findUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundExeption("User not found"));
     }
 
     public User findByUsername(String username) {

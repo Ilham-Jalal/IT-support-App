@@ -1,7 +1,12 @@
 package com.example.demo.services;
 
 import com.example.demo.Enum.TicketStatus;
+import com.example.demo.Exeption.EquipmentExeptionNotFound;
+import com.example.demo.Exeption.IncidentExeptionNotFound;
+import com.example.demo.Exeption.TechnicianExeptionNotFound;
+import com.example.demo.Exeption.TicketExeptionNotFound;
 import com.example.demo.models.*;
+import com.example.demo.repository.EquipmentRepository;
 import com.example.demo.repository.IncidentRepository;
 import com.example.demo.repository.TicketRepository;
 import com.example.demo.repository.UserRepository;
@@ -22,12 +27,16 @@ public class TicketService {
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
     private final IncidentRepository incidentRepository;
+    private final EquipmentRepository equipmentRepository;
 
 
-    public Ticket saveTicket(Ticket ticket, Long incidentId, User user) {
+    public Ticket saveTicket(Ticket ticket, Long incidentId,  Long equipmentId,User user) {
         Incident incident = incidentRepository.findById(incidentId)
-                .orElseThrow(() -> new RuntimeException("Incident not found"));
+                .orElseThrow(() -> new IncidentExeptionNotFound("not found" ));
+        Equipment equipment = equipmentRepository.findById(equipmentId)
+                .orElseThrow(() -> new EquipmentExeptionNotFound("equipment not found"));
         ticket.setIncident(incident);
+        ticket.setEquipment(equipment);
         ticket.setUtilisateur((Utilisateur) user);
         ticket.setStatus(TicketStatus.OPEN);
         return ticketRepository.save(ticket);
@@ -42,11 +51,11 @@ public class TicketService {
 
 
     public List<Ticket> assignTicket(Long id, Long userId) {
-        Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new RuntimeException("Ticket not found"));
+        Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new TicketExeptionNotFound("Ticket not found"));
         TechnicianIT technician = userRepository.findById(userId)
                 .filter(TechnicianIT.class::isInstance)
                 .map(TechnicianIT.class::cast)
-                .orElseThrow(() -> new RuntimeException("Technician not found"));
+                .orElseThrow(() -> new TechnicianExeptionNotFound("Technician not found"));
         ticket.setTechnician(technician);
         return Collections.singletonList(ticketRepository.save(ticket));
     }

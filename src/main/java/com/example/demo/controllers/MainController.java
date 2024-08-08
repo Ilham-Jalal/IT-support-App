@@ -116,12 +116,12 @@ public class MainController {
 
 
 
-    @PostMapping("user/{incidentId}/tickets")
-    public ResponseEntity<Ticket> addTicket(@RequestBody Ticket supportTicket, @PathVariable Long incidentId) {
+    @PostMapping("user/{incidentId}/tickets/{equipmentId}")
+    public ResponseEntity<Ticket> addTicket(@RequestBody Ticket supportTicket, @PathVariable Long incidentId, @PathVariable Long equipmentId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User user = userService.findByUsername(username);
-        Ticket newTicket = ticketService.saveTicket(supportTicket, incidentId, user);
+        Ticket newTicket = ticketService.saveTicket(supportTicket, incidentId, equipmentId, user);
         return ResponseEntity.ok(newTicket);
     }
     @PutMapping("admin/tickets/{id}/assign/{userId}")

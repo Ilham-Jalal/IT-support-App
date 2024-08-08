@@ -32,7 +32,6 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(expressionInterceptUrlRegistry ->
                         expressionInterceptUrlRegistry
-
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/user/**").hasRole("USER")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
