@@ -92,7 +92,7 @@ public class MainController {
 
     // User Management
 
-    @PostMapping("/signup/{role}")
+    @PostMapping("admin/signup/{role}")
     public ResponseEntity<User> signUp(@PathVariable Role role, @RequestBody SignUpRequest signUpRequest) {
         User createdUser = userService.signUp(role, signUpRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
