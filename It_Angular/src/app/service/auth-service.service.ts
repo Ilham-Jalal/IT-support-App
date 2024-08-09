@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { LoginRequest } from "../dto/LoginRequest";
-import { SignUpRequest } from "../dto/SignUpRequest";
-import {DecodejwtService} from "./decodejwt-service.service";
-import {Role} from "../enum/Role";
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { DecodejwtService } from './decodejwt-service.service';
+import { LoginRequest } from '../dto/LoginRequest';
+import { SignUpRequest } from '../dto/SignUpRequest';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   private apiUrl = 'http://localhost:8080';
 
   constructor(
@@ -18,23 +16,15 @@ export class AuthService {
     private decodejwtService: DecodejwtService
   ) { }
 
-  login(loginRequest: LoginRequest): Observable<{ accessToken: string, user: { role: string } }> {
-    return this.http.post<{ accessToken: string, user: { role: string } }>(`${this.apiUrl}/login`, loginRequest);
-  }
-
-  setToken(token: string): void {
-    localStorage.setItem('jwt', token);
+  login(loginRequest: LoginRequest): Observable<{ token: string, role: string }> {
+    return this.http.post<{ token: string, role: string }>(`${this.apiUrl}/login`, loginRequest);
   }
 
   signUp(role: string, signUpRequest: SignUpRequest): Observable<any> {
     return this.http.post(`${this.apiUrl}/admin/signup/${role}`, signUpRequest);
   }
 
-  public findIdByUsername(username: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/findi?username=${username}`);
-  }
-
-  getCurrentUserRole(): Role | null {
+  getCurrentUserRole(): string | null {
     const token = localStorage.getItem('jwt');
     if (token) {
       const decodedToken = this.decodejwtService.decodeToken(token);
@@ -43,4 +33,7 @@ export class AuthService {
     return null;
   }
 
+  public findIdByUsername(username: string | null): Observable<any> {
+    return this.http.get(`${this.apiUrl}/findi?username=${username}`);
+  }
 }

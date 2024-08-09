@@ -7,16 +7,16 @@ import { DashTechnicianComponent } from "./dash-technician/dash-technician.compo
 import { DashUserComponent } from "./dash-user/dash-user.component";
 import { AuthGuardComponent } from "./auth-guard/auth-guard.component";
 import { Role } from "./enum/Role";
-import {Guard} from "./service/autGuard.service";
+import {AuthGuard} from "./service/autGuard.service";
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignUpComponent, canActivate: [Guard], data: { expectedRole: Role.ADMIN }},
-  { path: 'dashboard', component: DashboardComponent, canActivate: [Guard], data: { expectedRole: Role.ADMIN }},
-  { path: 'technician', component: DashTechnicianComponent, canActivate: [Guard], data: { expectedRole: Role.TECHNICIAN }},
-  { path: 'user', component: DashUserComponent, canActivate: [Guard], data: { expectedRole: Role.USER }},
+  { path: 'signup', component: SignUpComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
+  { path: 'technician', component: DashTechnicianComponent, canActivate: [AuthGuard], data: { expectedRole: Role.TECHNICIAN } },
+  { path: 'user', component: DashUserComponent, canActivate: [AuthGuard], data: { expectedRole: Role.USER } },
   { path: 'access-denied', component: AuthGuardComponent },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }
+  { path: '', redirectTo: '/login', pathMatch: 'full' } // Optional: redirect to login if the path is empty
 ];
 
 @NgModule({

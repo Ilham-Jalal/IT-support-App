@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterOutlet } from '@angular/router';
-import { AuthService } from "../service/auth-service.service";
-import { LoginRequest } from "../dto/LoginRequest";
-import { HttpClientModule } from "@angular/common/http";
+
+  import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../service/auth-service.service';
+import { LoginRequest } from '../dto/LoginRequest';
+import { NgIf } from "@angular/common";
+import { Role } from '../enum/Role';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +13,7 @@ import { HttpClientModule } from "@angular/common/http";
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    HttpClientModule,
-    RouterOutlet
+    NgIf
   ],
 })
 export class LoginComponent implements OnInit {
@@ -27,57 +28,42 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: '',
-      password: ''
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
-  login(): void {
+  onSubmit(): void {
     if (this.loginForm.invalid) {
       return;
     }
 
-    const loginRequest: LoginRequest = this.loginForm.value as LoginRequest;
+    const loginRequest: LoginRequest = this.loginForm.value;
 
-    this.authService.login(loginRequest).subscribe(
-      response => {
-        if (response && response.accessToken) {
-          localStorage.setItem('jwt', response.accessToken);
+    this.authService.login(loginRequest).subscribe({
+      next: (response) => {
+        const { token, role } = response;
+        localStorage.setItem('jwt', token);
 
-          const role = response.user.role;
-
-          if (role === 'ADMIN') {
-            this.router.navigate(['/dashboard']).then(success => {
-              if (!success) {
-                console.error('Navigation to /dashboard failed.');
-              }
-            });
-          } else if (role === 'USER') {
-            this.router.navigate(['/user']).then(success => {
-              if (!success) {
-                console.error('Navigation to /user failed.');
-              }
-            });
-          } else if (role === 'TECHNICIAN') {
-            this.router.navigate(['/technician']).then(success => {
-              if (!success) {
-                console.error('Navigation to /technician failed.');
-              }
-            });
-          } else {
-            this.errorMessage = 'Role undefined: ' + role;
-          }
+        // Navigate based on user role
+        switch (role) {
+          case Role.ADMIN:
+            this.router.navigate(['/dashboard']);
+            break;
+          case Role.USER:
+            this.router.navigate(['/user']);
+            break;
+          case Role.TECHNICIAN:
+            this.router.navigate(['/technician']);
+            break;
+          default:
+            this.router.navigate(['/access-denied']);
+            break;
         }
       },
-      error => {
-        if (error.status === 401) {
-          this.errorMessage = 'Invalid username or password.';
-        } else if (error.status === 0) {
-          this.errorMessage = 'Unable to connect to the server. Please try again later.';
-        } else {
-          this.errorMessage = 'Login failed. Please try again.';
-        }
+      error: (err) => {
+        this.errorMessage = 'Invalid username or password';
       }
-    );
+    });
   }
 }

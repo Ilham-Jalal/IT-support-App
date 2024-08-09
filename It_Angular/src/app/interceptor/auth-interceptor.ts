@@ -1,8 +1,9 @@
-import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import {HttpHandlerFn, HttpInterceptorFn, HttpRequest} from "@angular/common/http";
 
-export const HttpInterceptor: HttpInterceptorFn = (
+
+export const AuthInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
-  next: HttpHandlerFn,
+  next: HttpHandlerFn
 ) => {
   console.log("Interceptor invoked");
   let cloned = req;
@@ -16,4 +17,7 @@ export const HttpInterceptor: HttpInterceptorFn = (
     });
   }
   return next(cloned);
+}
+
+export class HttpInterceptor {
 }
