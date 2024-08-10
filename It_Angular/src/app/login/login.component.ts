@@ -42,14 +42,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(loginRequest).subscribe({
       next: (response) => {
         const { token, role } = response;
-        console.log('Received token:', token); // Debugging
-        console.log('Received role:', role); // Debugging
+        console.log('Received token:', token);
+        console.log('Received role:', role);
         localStorage.setItem('jwt', token);
-
-        // Navigate based on user role
         switch (role) {
           case Role.ADMIN:
+            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
             this.router.navigate(['/dashboard']);
+            console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
             break;
           case Role.USER:
             this.router.navigate(['/user']);

@@ -16,7 +16,7 @@ export const routes: Routes = [
   { path: 'technician', component: DashTechnicianComponent, canActivate: [AuthGuard], data: { expectedRole: Role.TECHNICIAN } },
   { path: 'user', component: DashUserComponent, canActivate: [AuthGuard], data: { expectedRole: Role.USER } },
   { path: 'access-denied', component: AuthGuardComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' } // Optional: redirect to login if the path is empty
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 
 @NgModule({

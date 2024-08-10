@@ -14,10 +14,10 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private decodejwtService: DecodejwtService
-  ) { }
+  ) {}
 
-  login(loginRequest: LoginRequest): Observable<{ token: string, role: string }> {
-    return this.http.post<{ token: string, role: string }>(`${this.apiUrl}/login`, loginRequest);
+  login(loginRequest: LoginRequest): Observable<{ token: string; role: string }> {
+    return this.http.post<{ token: string; role: string }>(`${this.apiUrl}/login`, loginRequest);
   }
 
   signUp(role: string, signUpRequest: SignUpRequest): Observable<any> {
@@ -28,12 +28,12 @@ export class AuthService {
     const token = localStorage.getItem('jwt');
     if (token) {
       const decodedToken = this.decodejwtService.decodeToken(token);
-      return decodedToken?.role || null;
+      return decodedToken?.roles || null; // Use 'roles' directly
     }
     return null;
   }
 
-  public findIdByUsername(username: string | null): Observable<any> {
+  findIdByUsername(username: string | null): Observable<any> {
     return this.http.get(`${this.apiUrl}/findi?username=${username}`);
   }
 }
