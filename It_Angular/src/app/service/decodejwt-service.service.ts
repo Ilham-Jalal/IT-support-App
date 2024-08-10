@@ -13,4 +13,8 @@ export class DecodejwtService {
     const decodedToken = this.decodeToken(token);
     return decodedToken?.sub || null;
   }
+  getUserRole(token: string): string | null {
+    const decodedToken: any = this.decodeToken(token);
+    return decodedToken?.role || null;
+  }
 }

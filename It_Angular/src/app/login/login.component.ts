@@ -1,5 +1,4 @@
-
-  import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth-service.service';
@@ -43,6 +42,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(loginRequest).subscribe({
       next: (response) => {
         const { token, role } = response;
+        console.log('Received token:', token); // Debugging
+        console.log('Received role:', role); // Debugging
         localStorage.setItem('jwt', token);
 
         // Navigate based on user role
@@ -57,11 +58,13 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/technician']);
             break;
           default:
+            console.log('Unknown role:', role); // Debugging
             this.router.navigate(['/access-denied']);
             break;
         }
       },
       error: (err) => {
+        console.error('Login error:', err); // Debugging
         this.errorMessage = 'Invalid username or password';
       }
     });

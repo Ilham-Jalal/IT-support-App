@@ -98,10 +98,8 @@ public class MainController {
         User createdUser = userService.signUp(role, signUpRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
-
-
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
         );
@@ -109,10 +107,14 @@ public class MainController {
 
         User user = userService.findByUsername(loginRequest.getUsername());
         String token = JwtAuth.generateToken(user.getUsername(), user.getRole());
-        Map<String, String> response = new HashMap<>();
+
+        Map<String, Object> response = new HashMap<>();
         response.put("token", token);
+        response.put("role", user.getRole()); 
+
         return ResponseEntity.ok(response);
     }
+
 
 
 
