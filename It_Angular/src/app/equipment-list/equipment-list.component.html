@@ -1,0 +1,23 @@
+<h2>Equipment List</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let equipment of equipments">
+    <td>{{ equipment.name }}</td>
+    <td>{{ equipment.description }}</td>
+    <td>{{ equipment.status }}</td>
+    <td>
+      <button (click)="editEquipment(equipment.id)">Edit</button>
+      <button (click)="deleteEquipment(equipment.id)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<button routerLink="/add-equipment">Add New Equipment</button>

@@ -14,12 +14,18 @@ public class JwtAuth {
     public static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public static String generateToken(String username, Role role) {
-        return Jwts.builder()
+        // Génération du token JWT
+        String token = Jwts.builder()
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000))
-                .claim("roles",role)
+                .claim("roles", role)
                 .signWith(SECRET_KEY)
                 .compact();
+
+        // Log du token généré
+        System.out.println("Generated Token: " + token);
+
+        return token;
     }
 }
