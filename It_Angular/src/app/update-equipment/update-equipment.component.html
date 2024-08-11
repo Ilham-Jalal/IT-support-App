@@ -1,1 +1,31 @@
-<p>update-equipment works!</p>
+<!-- update-equipment.component.html -->
+<form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name:</label>
+    <input id="name" formControlName="name" />
+    <div *ngIf="equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched">
+      <small *ngIf="equipmentForm.get('name')?.hasError('required')">Name is required.</small>
+      <small *ngIf="equipmentForm.get('name')?.hasError('minlength')">Name must be at least 3 characters long.</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description"></textarea>
+  </div>
+
+  <div>
+    <label for="status">Status:</label>
+    <select id="status" formControlName="status">
+      <option value="" disabled>Select Status</option>
+      <option *ngFor="let status of equipmentStatuses" [value]="status">
+        {{ status }}
+      </option>
+    </select>
+    <div *ngIf="equipmentForm.get('status')?.invalid && equipmentForm.get('status')?.touched">
+      <small *ngIf="equipmentForm.get('status')?.hasError('required')">Status is required.</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="equipmentForm.invalid">Update</button>
+</form>

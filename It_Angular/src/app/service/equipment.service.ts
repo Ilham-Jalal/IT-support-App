@@ -11,7 +11,9 @@ export class EquipmentService {
   private baseUrl = 'http://localhost:8080/admin';
 
   constructor(private http: HttpClient) {}
-
+  getEquipmentById(id: number): Observable<Equipment> {
+    return this.http.get<Equipment>(`${this.baseUrl}/${id}`);
+  }
   getAllEquipments(): Observable<Equipment[]> {
     return this.http.get<Equipment[]>(`${this.baseUrl}`);
   }

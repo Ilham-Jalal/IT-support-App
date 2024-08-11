@@ -10,6 +10,7 @@ import { Role } from "./enum/Role";
 import {AuthGuard} from "./service/autGuard.service";
 import {EquipmentListComponent} from "./equipment-list/equipment-list.component";
 import {AddEquipmentComponent} from "./add-equipment/add-equipment.component";
+import {UpdateEquipmentComponent} from "./update-equipment/update-equipment.component";
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,7 +21,7 @@ export const routes: Routes = [
   { path: 'access-denied', component: AuthGuardComponent },
   { path: 'equipments', component: EquipmentListComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'add-equipment', component: AddEquipmentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
- // { path: 'edit-equipment/:id', component: EditEquipmentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
+  { path: 'edit-equipment/:id', component: UpdateEquipmentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
 ];
 
 @NgModule({

@@ -7,6 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 export class DecodejwtService {
   decodeToken(token: string): any {
     return jwtDecode(token);
+    console.log("hhhhhhhhhhhh"+token)
   }
 
   getUsernameFromToken(token: string): string | null {

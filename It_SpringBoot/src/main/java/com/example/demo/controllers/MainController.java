@@ -55,6 +55,11 @@ public class MainController {
     public ResponseEntity<Equipment> updateEquipment(@PathVariable Long id, @RequestBody Equipment updatedEquipment) {
         return ResponseEntity.ok(equipmentService.updateEquipment(id, updatedEquipment));
     }
+    @GetMapping("admin/{id}")
+    public ResponseEntity<Equipment> getEquipmentById(@PathVariable("id") Long id) {
+        Equipment equipment = equipmentService.getEquipmentById(id);
+        return new ResponseEntity<>(equipment, HttpStatus.OK);
+    }
 
     @DeleteMapping("/admin/{id}")
     public ResponseEntity<Void> deleteEquipment(@PathVariable Long id) {
