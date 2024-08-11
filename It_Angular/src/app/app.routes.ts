@@ -15,6 +15,7 @@ import {IncidentComponent} from "./incident/incident.component";
 import {IncidentListComponent} from "./incident-list/incident-list.component";
 import {CreateIncidentComponent} from "./create-incident/create-incident.component";
 import {IncidentUpdateComponent} from "./incident-update/incident-update.component";
+import {TicketListComponent} from "./ticket-list/ticket-list.component";
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -30,9 +31,7 @@ export const routes: Routes = [
   { path: 'incidents', component: IncidentListComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'add-incidents', component: CreateIncidentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'update-incidents/:id', component: IncidentUpdateComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
-
-
-
+  { path: 'tickets', component: TicketListComponent, canActivate: [AuthGuard], data: { expectedRole: Role.USER } },
 ];
 
 @NgModule({
