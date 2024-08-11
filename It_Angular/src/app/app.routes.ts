@@ -9,6 +9,7 @@ import { AuthGuardComponent } from "./auth-guard/auth-guard.component";
 import { Role } from "./enum/Role";
 import {AuthGuard} from "./service/autGuard.service";
 import {EquipmentListComponent} from "./equipment-list/equipment-list.component";
+import {AddEquipmentComponent} from "./add-equipment/add-equipment.component";
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,7 +19,7 @@ export const routes: Routes = [
   { path: 'user', component: DashUserComponent, canActivate: [AuthGuard], data: { expectedRole: Role.USER } },
   { path: 'access-denied', component: AuthGuardComponent },
   { path: 'equipments', component: EquipmentListComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
- // { path: 'add-equipment', component: AddEquipmentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
+  { path: 'add-equipment', component: AddEquipmentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
  // { path: 'edit-equipment/:id', component: EditEquipmentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
 ];
 
