@@ -1,12 +1,10 @@
 package com.example.demo.services;
 
 import com.example.demo.Enum.IncidentStatus;
-import com.example.demo.models.Equipment;
 import com.example.demo.models.Incident;
 import com.example.demo.repository.IncidentRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -25,12 +23,17 @@ public class IncidentService {
         return incidentRepository.save(incident);
     }
 
+    public List<Incident> getAllIncidents(){
+        return incidentRepository.findAll();
+    }
     public Incident updateIncidentStatus(Long id, IncidentStatus status) {
         Incident incident = incidentRepository.findById(id).orElseThrow();
         incident.setStatus(status);
         return incidentRepository.save(incident);
     }
-
+    public Incident findIncidentById(Long id) {
+        return incidentRepository.findById(id).orElseThrow();
+    }
     public List<Incident> getIncidentsByEquipment(Long equipmentId) {
         return incidentRepository.findIncidentByEquipmentId(equipmentId);
     }

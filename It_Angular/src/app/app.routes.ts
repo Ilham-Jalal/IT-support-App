@@ -11,6 +11,10 @@ import {AuthGuard} from "./service/autGuard.service";
 import {EquipmentListComponent} from "./equipment-list/equipment-list.component";
 import {AddEquipmentComponent} from "./add-equipment/add-equipment.component";
 import {UpdateEquipmentComponent} from "./update-equipment/update-equipment.component";
+import {IncidentComponent} from "./incident/incident.component";
+import {IncidentListComponent} from "./incident-list/incident-list.component";
+import {CreateIncidentComponent} from "./create-incident/create-incident.component";
+import {IncidentUpdateComponent} from "./incident-update/incident-update.component";
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,6 +26,13 @@ export const routes: Routes = [
   { path: 'equipments', component: EquipmentListComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'add-equipment', component: AddEquipmentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'edit-equipment/:id', component: UpdateEquipmentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
+  { path: 'incidentsByEQ', component: IncidentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
+  { path: 'incidents', component: IncidentListComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
+  { path: 'add-incidents', component: CreateIncidentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
+  { path: 'update-incidents/:id', component: IncidentUpdateComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
+
+
+
 ];
 
 @NgModule({

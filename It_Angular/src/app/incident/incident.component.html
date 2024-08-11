@@ -1,0 +1,12 @@
+<div *ngIf="incidents.length > 0; else noIncidents">
+  <h2>Incidents for Equipment ID: {{ equipmentId }}</h2>
+  <ul>
+    <li *ngFor="let incident of incidents">
+      {{ incident.description }} - Status: {{ incident.status }}
+    </li>
+  </ul>
+</div>
+
+<ng-template #noIncidents>
+  <p>No incidents found for this equipment.</p>
+</ng-template>

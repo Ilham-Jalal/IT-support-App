@@ -12,6 +12,7 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
     const expectedRole = route.data['expectedRole'] as Role;
+    console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
     const userRole = await this.authService.getCurrentUserRole();
 
     console.log('Expected Role:', expectedRole);

@@ -74,14 +74,24 @@ public class MainController {
     }
 
     // Incident Management
+    @GetMapping("admin/incidents/all")
+    public List<Incident> getAllIcidents(){
+        return incidentService.getAllIncidents();
+    }
+
     @PostMapping("admin/incidents")
     public ResponseEntity<Incident> reportIncident(@RequestBody Incident incident) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         User user = userService.findByUsername(username);
-        return ResponseEntity.ok(incidentService.reportIncident(incident));
+        Incident createdIncident = incidentService.reportIncident(incident);
+        return ResponseEntity.ok(createdIncident);
     }
-    @DeleteMapping("/admin/incident/{id}")
+    @GetMapping("admin/incidents/{id}")
+    public ResponseEntity<Incident> findIncidentById(@PathVariable("id") Long id) {
+        Incident incident = incidentService.findIncidentById(id);
+        return new ResponseEntity<>(incident, HttpStatus.OK);}
+    @DeleteMapping("/admin/incidents/{id}")
     public ResponseEntity<Void> deleteIncident(@PathVariable Long id) {
         incidentService.deleteIncident(id);
         return ResponseEntity.noContent().build();
@@ -92,7 +102,7 @@ public class MainController {
         return ResponseEntity.ok(updatedIncident);
     }
 
-    @GetMapping("/admin/equipment/{equipmentId}/incidents")
+    @GetMapping("/admin/incidents/{equipmentId}/equipment")
     public ResponseEntity<List<Incident>> getIncidentsByEquipment(@PathVariable Long equipmentId) {
         List<Incident> incidents = incidentService.getIncidentsByEquipment(equipmentId);
         return ResponseEntity.ok(incidents);

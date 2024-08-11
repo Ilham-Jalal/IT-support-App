@@ -6,17 +6,18 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class DecodejwtService {
   decodeToken(token: string): any {
-    return jwtDecode(token);
     console.log("hhhhhhhhhhhh"+token)
+    return jwtDecode(token);
+
   }
 
-  getUsernameFromToken(token: string): string | null {
+  getUsernameFromToken(token: string) {
     const decodedToken = this.decodeToken(token);
     return decodedToken?.sub || null;
   }
 
-  getUserRole(token: string): string | null {
+  getUserRole(token: string) {
     const decodedToken = this.decodeToken(token);
-    return decodedToken?.roles || null; // Make sure 'roles' matches the token property
+    return decodedToken?.roles ;
   }
 }

@@ -19,7 +19,7 @@ import {NgForOf, NgIf} from "@angular/common";
 export class UpdateEquipmentComponent implements OnInit {
   equipmentForm!: FormGroup;
   equipmentStatuses = Object.values(EquipmentStatus);
-  equipmentId!: number; // To hold the ID of the equipment being edited
+  equipmentId!: number;
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +37,7 @@ export class UpdateEquipmentComponent implements OnInit {
   }
   initForm(): void {
     this.equipmentForm = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(3)]],
+    name: ['', Validators.required],
     description: [''],
     status: ['', Validators.required]
   });}

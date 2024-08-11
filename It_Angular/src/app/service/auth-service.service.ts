@@ -27,6 +27,7 @@ export class AuthService {
   getCurrentUserRole(): string | null {
     const token = localStorage.getItem('jwt');
     if (token) {
+      console.log("tttttttttttttttttttt "+token)
       const decodedToken = this.decodejwtService.decodeToken(token);
       return decodedToken?.roles || null; // Use 'roles' directly
     }
