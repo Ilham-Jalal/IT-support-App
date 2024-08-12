@@ -1,10 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.Enum.TicketStatus;
-import com.example.demo.Exeption.EquipmentExeptionNotFound;
-import com.example.demo.Exeption.IncidentExeptionNotFound;
-import com.example.demo.Exeption.TechnicianExeptionNotFound;
-import com.example.demo.Exeption.TicketExeptionNotFound;
+import com.example.demo.Exeption.*;
 import com.example.demo.models.*;
 import com.example.demo.repository.EquipmentRepository;
 import com.example.demo.repository.IncidentRepository;
@@ -29,7 +26,9 @@ public class TicketService {
     private final IncidentRepository incidentRepository;
     private final EquipmentRepository equipmentRepository;
 
-
+    public Ticket findTicketById(Long id) {
+        return ticketRepository.findById(id).orElseThrow(() -> new UserNotFoundExeption("User not found"));
+    }
     public Ticket saveTicket(Ticket ticket, Long incidentId,  Long equipmentId,User user) {
         Incident incident = incidentRepository.findById(incidentId)
                 .orElseThrow(() -> new IncidentExeptionNotFound("not found" ));
@@ -64,6 +63,9 @@ public class TicketService {
         return ticketRepository.findByUtilisateur_Id(userId);
     }
 
+    public List<Ticket> getAllTickets() {
+        return ticketRepository.findAll();
+    }
     public List<Ticket> getTicketsByTechnician(Long technicianId) {
         return ticketRepository.findByTechnicianId(technicianId);
     }

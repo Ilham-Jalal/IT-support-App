@@ -1,0 +1,22 @@
+<div>
+  <h2>Ajouter un Ticket</h2>
+  <form [formGroup]="ticketForm" (ngSubmit)="addTicket()">
+    <label for="incidentId">Incident:</label>
+    <select id="incidentId" formControlName="incidentId">
+      <option *ngFor="let incident of incidents" [value]="incident.id">{{ incident.description }}</option>
+    </select>
+
+    <label for="equipmentId">Équipement:</label>
+    <select id="equipmentId" formControlName="equipmentId">
+      <option *ngFor="let equipment of equipments" [value]="equipment.id">{{ equipment.name }}</option>
+    </select>
+
+    <label for="dateCreated">Date:</label>
+    <input type="date" id="dateCreated" formControlName="dateCreated">
+
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description"></textarea>
+
+    <button type="submit" [disabled]="ticketForm.invalid">Ajouter</button>
+  </form>
+</div>

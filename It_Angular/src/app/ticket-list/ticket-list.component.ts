@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Ticket} from "../model/Ticket";
-import {TicketService} from "../service/ticket.service";
-import {DatePipe, NgForOf} from "@angular/common";
+import { Ticket } from "../model/Ticket";
+import { TicketService } from "../service/ticket.service";
+import { DatePipe, NgForOf } from "@angular/common";
 
 @Component({
   selector: 'app-ticket-list',

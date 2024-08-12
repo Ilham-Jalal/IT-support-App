@@ -16,6 +16,10 @@ import {IncidentListComponent} from "./incident-list/incident-list.component";
 import {CreateIncidentComponent} from "./create-incident/create-incident.component";
 import {IncidentUpdateComponent} from "./incident-update/incident-update.component";
 import {TicketListComponent} from "./ticket-list/ticket-list.component";
+import {AddTicketComponent} from "./add-ticket/add-ticket.component";
+import {AssignTicketComponent} from "./assign-ticket/assign-ticket.component";
+import {TicketListTechnicianComponent} from "./ticket-list-technician/ticket-list-technician.component";
+import {UpdateTicketStatusComponent} from "./update-ticket-status/update-ticket-status.component";
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -32,6 +36,13 @@ export const routes: Routes = [
   { path: 'add-incidents', component: CreateIncidentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'update-incidents/:id', component: IncidentUpdateComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'tickets', component: TicketListComponent, canActivate: [AuthGuard], data: { expectedRole: Role.USER } },
+  { path: 'add-ticket', component: AddTicketComponent, canActivate: [AuthGuard], data: { expectedRole: Role.USER } },
+  { path: 'assign', component: AssignTicketComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
+  { path: 'technician-ticket', component: TicketListTechnicianComponent, canActivate: [AuthGuard], data: { expectedRole: Role.TECHNICIAN } },
+  { path: 'technician-updateTicket/:id', component: UpdateTicketStatusComponent, canActivate: [AuthGuard], data: { expectedRole: Role.TECHNICIAN } },
+
+
+
 ];
 
 @NgModule({

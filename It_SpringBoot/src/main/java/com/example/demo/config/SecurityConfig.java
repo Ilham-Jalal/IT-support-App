@@ -36,6 +36,8 @@ public class SecurityConfig {
                                 .requestMatchers("/user/**").hasRole("USER")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/technician/**").hasRole("TECHNICIAN")
+                                .requestMatchers("/incidents/all/**").permitAll()
+                                .requestMatchers("/equipment/all/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin.disable())

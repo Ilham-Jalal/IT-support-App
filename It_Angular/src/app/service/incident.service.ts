@@ -9,29 +9,29 @@ import {Equipment} from "../model/Equipment";
 })
 export class IncidentService {
 
-  private apiUrl = `http://localhost:8080/admin/incidents`;
+  private apiUrl = `http://localhost:8080`;
 
   constructor(private http: HttpClient) { }
   getAllIncidents(): Observable<Incident[]> {
-    return this.http.get<Incident[]>(`${this.apiUrl}/all`);
+    return this.http.get<Incident[]>(`${this.apiUrl}/incidents/all`);
   }
   getIncidentById(id: number): Observable<Incident> {
-    return this.http.get<Incident>(`${this.apiUrl}/${id}`);
+    return this.http.get<Incident>(`${this.apiUrl}/admin/incidents/${id}`);
   }
 
   updateIncident(id: number, incident: Incident): Observable<Incident> {
-    return this.http.put<Incident>(`${this.apiUrl}/${id}`, incident);
+    return this.http.put<Incident>(`${this.apiUrl}/admin/incidents/${id}`, incident);
   }
 
   deleteIncident(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/admin/incidents/${id}`);
   }
 
   getIncidentsByEquipment(equipmentId: number): Observable<Incident[]> {
-    return this.http.get<Incident[]>(`${this.apiUrl}/${equipmentId}/equipment`);
+    return this.http.get<Incident[]>(`${this.apiUrl}/${equipmentId}/admin/incidents/equipment`);
   }
 
   createIncident(incident: Incident): Observable<Incident> {
-    return this.http.post<Incident>(this.apiUrl, incident);
+    return this.http.post<Incident>(`${this.apiUrl}/admin`, incident);
   }
 }

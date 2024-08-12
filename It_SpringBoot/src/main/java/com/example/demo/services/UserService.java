@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -60,6 +61,13 @@ public class UserService {
         user.setPassword(hashedPassword);
 
         return userRepository.save(user);
+    }
+
+    public List<User> getTechnicians() {
+        return userRepository.findAll()
+                .stream()
+                .filter(user -> user instanceof TechnicianIT)
+                .collect(Collectors.toList());
     }
 
     public Integer findIdUserByUsername(String username){

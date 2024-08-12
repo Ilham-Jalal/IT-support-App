@@ -67,14 +67,13 @@ public class MainController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/equipment/all")
     public ResponseEntity<List<Equipment>> getAllEquipments() {
         return ResponseEntity.ok(equipmentService.getAllEquipments());
     }
 
     // Incident Management
-    @GetMapping("admin/incidents/all")
+    @GetMapping("/incidents/all")
     public List<Incident> getAllIcidents(){
         return incidentService.getAllIncidents();
     }
@@ -136,14 +135,14 @@ public class MainController {
 
 
 
-//    @PostMapping("user/{incidentId}/tickets/{equipmentId}")
-//    public ResponseEntity<Ticket> addTicket(@RequestBody Ticket supportTicket, @PathVariable Long incidentId, @PathVariable Long equipmentId) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        String username = authentication.getName();
-//        User user = userService.findByUsername(username);
-//        Ticket newTicket = ticketService.saveTicket(supportTicket, incidentId, equipmentId, user);
-//        return ResponseEntity.ok(newTicket);
-//    }
+    @PostMapping("user/{incidentId}/tickets/{equipmentId}")
+    public ResponseEntity<Ticket> addTicket(@RequestBody Ticket supportTicket, @PathVariable Long incidentId, @PathVariable Long equipmentId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userService.findByUsername(username);
+        Ticket newTicket = ticketService.saveTicket(supportTicket, incidentId, equipmentId, user);
+        return ResponseEntity.ok(newTicket);
+    }
 
     @PutMapping("admin/tickets/{id}/assign/{userId}")
     public ResponseEntity<List<Ticket>> assignTicket(@PathVariable Long id, @PathVariable Long userId) {
@@ -166,15 +165,29 @@ public class MainController {
         TechnicianIT technician = (TechnicianIT) userService.findByUsername(username);
         return ResponseEntity.ok(ticketService.getTicketsByTechnician(technician.getId()));
     }
-
-    @PutMapping("technician/tickets/{id}")
-    public ResponseEntity<Ticket> updateTicketStatus(@PathVariable Long id, @RequestBody TicketStatus status) {
-        return ResponseEntity.ok(ticketService.updateTicketStatus(id, status));
+    @GetMapping("admin/tickets")
+    public List<Ticket> getAllTickets() {
+        return ticketService.getAllTickets();
     }
-
+    @PutMapping("/technician/tickets/{id}")
+    public ResponseEntity<Ticket> updateTicketStatus(@PathVariable Long id,@RequestBody Ticket ticket) {
+        return ResponseEntity.ok(ticketService.updateTicketStatus(id, ticket.getStatus()));
+    }
+    @GetMapping("technician/tickets/{id}")
+    public Ticket findTicketById(@PathVariable Long id){
+        return ticketService.findTicketById(id);
+    }
     @GetMapping("findi")
     public Integer findId(@RequestParam String username){
         return userService.findIdUserByUsername(username);
     }
+
+
+    @GetMapping("admin/technicians")
+    public ResponseEntity<List<User>> getTechnicians() {
+        List<User> technicians = userService.getTechnicians();
+        return ResponseEntity.ok(technicians);
+    }
+
 }
 

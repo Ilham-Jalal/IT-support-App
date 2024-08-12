@@ -1,0 +1,7 @@
+<form [formGroup]="statusForm" (ngSubmit)="onSubmit()">
+  <label for="status">Statut:</label>
+  <select id="status" formControlName="status">
+    <option *ngFor="let status of ticketStatus" [value]="status">{{status}}</option>
+  </select>
+  <button type="submit">Mettre à jour</button>
+</form>
