@@ -5,6 +5,7 @@ import {Incident} from "../model/Incident";
 import {TicketService} from "../service/ticket.service";
 import {Ticket} from "../model/Ticket";
 import {NgForOf} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-ticket',
@@ -20,7 +21,7 @@ export class AddTicketComponent implements OnInit {
   equipments: Equipment[] = [];
   incidents: Incident[] = [];
 
-  constructor(private fb: FormBuilder, private ticketService: TicketService) {
+  constructor(private fb: FormBuilder, private ticketService: TicketService, private router:Router) {
     this.ticketForm = this.fb.group({
       incidentId: [null, Validators.required],
       equipmentId: [null, Validators.required],
@@ -53,12 +54,7 @@ export class AddTicketComponent implements OnInit {
       this.ticketService.addTicket(this.ticketForm.value).subscribe(
         (newTicket: Ticket) => {
           console.log('Ticket ajouté', newTicket);
-          this.ticketForm.reset({
-            incidentId: null,
-            equipmentId: null,
-            dateCreated: new Date().toISOString().substring(0, 10), // Réinitialise la date au jour courant
-            description: ''
-          });
+          this.router.navigate(['/tickets']);
         },
         (error) => {
           console.error('Erreur lors de l\'ajout du ticket', error);

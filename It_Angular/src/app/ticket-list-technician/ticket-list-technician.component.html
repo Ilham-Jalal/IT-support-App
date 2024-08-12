@@ -6,8 +6,6 @@
       <p>Description: {{ ticket.description }}</p>
       <p>Date Création: {{ ticket.dateCreated | date:'short' }}</p>
       <p>Status: {{ ticket.status }}</p>
-      <p>Équipement: {{ ticket.equipment?.name }}</p>
-      <p>Panne: {{ ticket.incident?.description }}</p>
       <button (click)="editTicket(ticket.id)">Edit</button>
     </li>
   </ul>

@@ -35,7 +35,7 @@ export class SignUpComponent implements OnInit {
   signUp() {
     if (this.signUpForm.valid) {
       const signUpRequest: SignUpRequest = this.signUpForm.value;
-      const role: Role = this.signUpForm.value.role as Role; 
+      const role: Role = this.signUpForm.value.role as Role;
       this.authService.signUp(role, signUpRequest).subscribe(() => {
         this.router.navigate(['/dashboard']);
       });

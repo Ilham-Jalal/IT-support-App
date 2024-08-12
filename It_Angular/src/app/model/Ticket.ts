@@ -13,6 +13,6 @@ export class Ticket {
   status!: TicketStatus;
   utilisateur!: Utilisateur;
   technician!: TechnicianIT;
-  equipment!: Equipment;
-  incident!: Incident;
+  equipment?: Equipment;
+  incident?: Incident;
 }
