@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { DecodejwtService } from './decodejwt-service.service';
 import { LoginRequest } from '../dto/LoginRequest';
 import { SignUpRequest } from '../dto/SignUpRequest';
+import {Role} from "../enum/Role";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
     return this.http.post<{ token: string; role: string }>(`${this.apiUrl}/login`, loginRequest);
   }
 
-  signUp(role: string, signUpRequest: SignUpRequest): Observable<any> {
+  signUp(role: Role, signUpRequest: SignUpRequest): Observable<any> {
     return this.http.post(`${this.apiUrl}/admin/signup/${role}`, signUpRequest);
   }
 
@@ -29,7 +30,7 @@ export class AuthService {
     if (token) {
       console.log("tttttttttttttttttttt "+token)
       const decodedToken = this.decodejwtService.decodeToken(token);
-      return decodedToken?.roles || null; // Use 'roles' directly
+      return decodedToken?.roles || null;
     }
     return null;
   }
