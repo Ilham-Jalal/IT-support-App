@@ -21,6 +21,7 @@ import {AssignTicketComponent} from "./assign-ticket/assign-ticket.component";
 import {TicketListTechnicianComponent} from "./ticket-list-technician/ticket-list-technician.component";
 import {UpdateTicketStatusComponent} from "./update-ticket-status/update-ticket-status.component";
 import {UserListComponent} from "./user-list/user-list.component";
+import {TicketsAComponent} from "./tickets-a/tickets-a.component";
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -38,11 +39,32 @@ export const routes: Routes = [
   { path: 'update-incidents/:id', component: IncidentUpdateComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'tickets', component: TicketListComponent, canActivate: [AuthGuard], data: { expectedRole: Role.USER } },
+  { path: 'admin-tickets', component: TicketsAComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'add-ticket', component: AddTicketComponent, canActivate: [AuthGuard], data: { expectedRole: Role.USER } },
   { path: 'assign', component: AssignTicketComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'technician-ticket', component: TicketListTechnicianComponent, canActivate: [AuthGuard], data: { expectedRole: Role.TECHNICIAN } },
   { path: 'technician-updateTicket/:id', component: UpdateTicketStatusComponent, canActivate: [AuthGuard], data: { expectedRole: Role.TECHNICIAN } },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN },
+    children: [
+      { path: 'equipments', component: EquipmentListComponent },
+      { path: 'users', component: UserListComponent },
+      { path: 'admin-tickets', component: TicketsAComponent},
+      { path: 'assign', component: AssignTicketComponent},
+      { path: 'add-ticket', component: AddTicketComponent},
+      { path: 'update-incidents/:id', component: IncidentUpdateComponent},
+      { path: 'incidents', component: IncidentListComponent},
+      { path: 'incidentsByEQ', component: IncidentComponent},
+      { path: 'edit-equipment/:id', component: UpdateEquipmentComponent},
+      { path: 'add-equipment', component: AddEquipmentComponent},
+      { path: 'signup', component: SignUpComponent},
 
+
+
+    ]
+  },
 
 
 ];

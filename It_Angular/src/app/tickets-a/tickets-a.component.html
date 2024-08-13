@@ -1,0 +1,33 @@
+<div *ngIf="tickets.length > 0; else noTickets">
+  <h2>Liste des tickets</h2>
+  <ul>
+    <li *ngFor="let ticket of tickets">
+      <strong>ID:</strong> {{ticket.id}} <br />
+      <strong>Description:</strong> {{ticket.description}} <br />
+      <strong>Date de création:</strong> {{ticket.dateCreated | date}} <br />
+      <strong>Status:</strong> {{ticket.status}} <br />
+    </li>
+  </ul>
+</div>
+
+<ng-template #noTickets>
+  <p>Aucun ticket disponible.</p>
+</ng-template>
+<style>
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  strong {
+    color: #333;
+  }
+
+</style>
