@@ -17,6 +17,11 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @GetMapping("admin/users")
+    public ResponseEntity<List<User>> getUsers() {
+        List<User> user = userService.findAllUsers();
+        return ResponseEntity.ok(user);
+    }
 
     @PostMapping("admin/signup/{role}")
     public ResponseEntity<User> signUp(@PathVariable Role role, @RequestBody SignUpRequest signUpRequest) {

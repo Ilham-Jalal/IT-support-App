@@ -3,10 +3,7 @@ package com.example.demo.services;
 import com.example.demo.Enum.Role;
 import com.example.demo.Exeption.UserNotFoundExeption;
 import com.example.demo.dto.SignUpRequest;
-import com.example.demo.models.AdminIT;
-import com.example.demo.models.TechnicianIT;
-import com.example.demo.models.User;
-import com.example.demo.models.Utilisateur;
+import com.example.demo.models.*;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +24,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public List<User> findAllUsers(){return userRepository.findAll();}
     public User findUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundExeption("User not found"));
     }
