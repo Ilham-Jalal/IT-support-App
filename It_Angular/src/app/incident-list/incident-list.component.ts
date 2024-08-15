@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { IncidentService } from '../service/incident.service';
 import { Incident } from '../model/Incident';
-import {DatePipe, NgForOf} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
+import {DatePipe, NgClass, NgForOf, UpperCasePipe} from "@angular/common";
 
 @Component({
   selector: 'app-incident-list',
   templateUrl: './incident-list.component.html',
+  styleUrls: ['./incident-list.component.scss'],
   standalone: true,
   imports: [
     NgForOf,
+    NgClass,
+    UpperCasePipe,
     DatePipe,
     RouterLink
-  ],
+  ]
 })
 export class IncidentListComponent implements OnInit {
   incidents: Incident[] = [];
-  selectedIncident?: Incident;
 
   constructor(private incidentService: IncidentService, private router: Router) {}
 
@@ -40,9 +42,11 @@ export class IncidentListComponent implements OnInit {
     );
   }
 
-
   editIncident(id: number): void {
     this.router.navigate(['/update-incidents', id]);
   }
 
+  getStatusClass(status: string): string {
+    return `status-${status.replace(/\s+/g, '_').toLowerCase()}`;
+  }
 }

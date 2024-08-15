@@ -1,42 +1,9 @@
-<style>
-  .container {
-    width: 80%;
-    margin: 0 auto;
-  }
-
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  .user-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .user-table th, .user-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-
-  .user-table th {
-    background-color: #f2f2f2;
-  }
-
-  .user-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-
-  .user-table tr:hover {
-    background-color: #ddd;
-  }
-
-</style>
-<div class="container">
-  <h1>List of Users</h1>
-
+<div class="user-list">
   <div *ngIf="users.length > 0; else noUsers">
+
+    <a routerLink="signup" class="add-button">
+      <i class="fas fa-plus"></i> Add user
+    </a>
     <table class="user-table">
       <thead>
       <tr>
@@ -47,18 +14,18 @@
       </tr>
       </thead>
       <tbody>
-      <!-- Loop through the users and display each one -->
       <tr *ngFor="let user of users">
         <td>{{ user.id }}</td>
         <td>{{ user.username }}</td>
         <td>{{ user.email }}</td>
-        <td>{{ user.role }}</td>
+        <td [ngClass]="getRoleClass(user.role)">{{ user.role }}</td>
+
       </tr>
       </tbody>
     </table>
   </div>
 
   <ng-template #noUsers>
-    <p>No users found.</p>
+    <p class="no-users-message">No users found.</p>
   </ng-template>
 </div>

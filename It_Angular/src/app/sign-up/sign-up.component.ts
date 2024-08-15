@@ -8,6 +8,7 @@ import { Role } from "../enum/Role";
 @Component({
   selector: 'app-signup',
   templateUrl: './sign-up.component.html',
+  styleUrls:['./sign-up.component.scss'],
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -37,7 +38,7 @@ export class SignUpComponent implements OnInit {
       const signUpRequest: SignUpRequest = this.signUpForm.value;
       const role: Role = this.signUpForm.value.role as Role;
       this.authService.signUp(role, signUpRequest).subscribe(() => {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard/users']);
       });
     }
   }

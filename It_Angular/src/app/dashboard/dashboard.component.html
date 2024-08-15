@@ -16,12 +16,13 @@
           </a>
         </li>
 
-        <li [ngClass]="{'active': (currentRoute$ | async) === '/dashboard/equipments'}">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           <a routerLink="/dashboard/equipments">
             <img src="https://img.icons8.com/ios-filled/50/ffffff/tools.png" class="menu-icon" alt="Equipments"/>
             <span>Equipments</span>
           </a>
         </li>
+
 
         <li [ngClass]="{'active': (currentRoute$ | async) === '/dashboard/users'}">
           <a routerLink="/dashboard/users">
@@ -56,6 +57,7 @@
 
   <!-- Main Content Area -->
   <div class="main-content">
+
     <router-outlet></router-outlet>
   </div>
 </div>

@@ -12,6 +12,8 @@ import { AuthInterceptor } from './interceptor/auth-interceptor';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import {MatDialogModule} from "@angular/material/dialog";
+import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,9 @@ import { MatButtonModule } from '@angular/material/button';
     SignUpComponent,
     AppComponent,
     BrowserAnimationsModule,
+    MatDialogModule,
+    AddEquipmentComponent,
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useValue: AuthInterceptor, multi: true }

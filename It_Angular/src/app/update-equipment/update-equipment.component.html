@@ -1,31 +1,42 @@
-<!-- update-equipment.component.html -->
-<form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()">
-  <div>
+<form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()" class="update-equipment-form">
+  <div class="form-field">
     <label for="name">Name:</label>
-    <input id="name" formControlName="name" />
-    <div *ngIf="equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched">
+    <input
+      id="name"
+      formControlName="name"
+      type="text"
+      placeholder="Enter name"
+    />
+    <div *ngIf="equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched" class="error-message">
       <small *ngIf="equipmentForm.get('name')?.hasError('required')">Name is required.</small>
       <small *ngIf="equipmentForm.get('name')?.hasError('minlength')">Name must be at least 3 characters long.</small>
     </div>
   </div>
 
-  <div>
+  <div class="form-field">
     <label for="description">Description:</label>
-    <textarea id="description" formControlName="description"></textarea>
+    <textarea
+      id="description"
+      formControlName="description"
+      placeholder="Enter description"
+    ></textarea>
   </div>
 
-  <div>
+  <div class="form-field">
     <label for="status">Status:</label>
-    <select id="status" formControlName="status">
+    <select
+      id="status"
+      formControlName="status"
+    >
       <option value="" disabled>Select Status</option>
       <option *ngFor="let status of equipmentStatuses" [value]="status">
         {{ status }}
       </option>
     </select>
-    <div *ngIf="equipmentForm.get('status')?.invalid && equipmentForm.get('status')?.touched">
+    <div *ngIf="equipmentForm.get('status')?.invalid && equipmentForm.get('status')?.touched" class="error-message">
       <small *ngIf="equipmentForm.get('status')?.hasError('required')">Status is required.</small>
     </div>
   </div>
 
-  <button type="submit" [disabled]="equipmentForm.invalid">Update</button>
+  <button type="submit" [disabled]="equipmentForm.invalid" class="submit-btn">Update</button>
 </form>

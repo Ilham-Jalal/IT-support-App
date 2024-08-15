@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
             console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
             break;
           case Role.USER:
-            this.router.navigate(['/user']);
+            this.router.navigate(['/user/home']);
             break;
           case Role.TECHNICIAN:
             this.router.navigate(['/technician']);

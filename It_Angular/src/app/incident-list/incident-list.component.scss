@@ -1,0 +1,88 @@
+.incident-list {
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background-color: #f5f5f5;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #ececec;
+      }
+
+      &.status-open {
+        border-left: 5px solid #ff9800; /* Orange for OPEN status */
+      }
+
+      &.status-in_progress {
+        border-left: 5px solid #03a9f4; /* Blue for IN_PROGRESS status */
+      }
+
+      &.status-closed {
+        border-left: 5px solid #4caf50; /* Green for CLOSED status */
+      }
+
+      &.status-pending {
+        border-left: 5px solid #ffeb3b; /* Yellow for PENDING status */
+      }
+
+      button {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:nth-child(1) {
+          background-color: #f44336; /* Red for delete button */
+          color: white;
+
+          &:hover {
+            background-color: #e53935;
+          }
+        }
+
+        &:nth-child(2) {
+          background-color: #2196f3; /* Blue for update button */
+          color: white;
+
+          &:hover {
+            background-color: #1976d2;
+          }
+        }
+      }
+    }
+  }
+
+  button[routerLink] {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #4caf50; /* Green for Add New Incident button */
+    color: white;
+    border: none;
+    border-radius: 3px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #388e3c;
+    }
+  }
+}

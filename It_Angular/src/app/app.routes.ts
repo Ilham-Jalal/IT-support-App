@@ -21,6 +21,7 @@ import {UpdateTicketStatusComponent} from "./update-ticket-status/update-ticket-
 import {UserListComponent} from "./user-list/user-list.component";
 import {TicketsAComponent} from "./tickets-a/tickets-a.component";
 import {UserDashboardComponent} from "./user-dashboard/user-dashboard.component";
+import {HomeComponent} from "./home/home.component";
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -53,9 +54,10 @@ export const routes: Routes = [
       { path: 'update-incidents/:id', component: IncidentUpdateComponent},
       { path: 'incidents', component: IncidentListComponent},
       { path: 'incidentsByEQ', component: IncidentComponent},
-      { path: 'edit-equipment/:id', component: UpdateEquipmentComponent},
-      { path: 'add-equipment', component: AddEquipmentComponent},
-      { path: 'signup', component: SignUpComponent},
+      { path: 'equipments/edit-equipment/:id', component: UpdateEquipmentComponent},
+      { path: 'equipments/add-equipment', component: AddEquipmentComponent },
+      { path: 'users/signup', component: SignUpComponent},
+
 
     ]
   },
@@ -66,6 +68,7 @@ export const routes: Routes = [
     children:[
       { path: 'add-ticket', component: AddTicketComponent},
       { path: 'tickets', component: TicketListComponent},
+      { path: 'home', component: HomeComponent},
     ]
   },
 

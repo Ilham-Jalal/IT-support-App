@@ -1,32 +1,127 @@
-<!-- add-equipment.component.html -->
+<!--<main >-->
+<!--<form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()" class="equipment-form">-->
+<!--  <mat-form-field appearance="fill">-->
+<!--    <mat-label>Name</mat-label>-->
+<!--    <input matInput formControlName="name" />-->
+<!--    <mat-error *ngIf="equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched">-->
+<!--      <div *ngIf="equipmentForm.get('name')?.hasError('required')">Name is required.</div>-->
+<!--      <div *ngIf="equipmentForm.get('name')?.hasError('minlength')">Name must be at least 3 characters long.</div>-->
+<!--    </mat-error>-->
+<!--  </mat-form-field>-->
+
+<!--  <mat-form-field appearance="fill">-->
+<!--    <mat-label>Description</mat-label>-->
+<!--    <textarea matInput formControlName="description"></textarea>-->
+<!--  </mat-form-field>-->
+
+<!--&lt;!&ndash;  <mat-form-field appearance="fill">&ndash;&gt;-->
+<!--&lt;!&ndash;    <mat-label>Status</mat-label>&ndash;&gt;-->
+<!--&lt;!&ndash;    <mat-select formControlName="status">&ndash;&gt;-->
+<!--&lt;!&ndash;      <mat-option value="" disabled>Select Status</mat-option>&ndash;&gt;-->
+<!--&lt;!&ndash;      <mat-option *ngFor="let name of names" [value]="name">&ndash;&gt;-->
+<!--&lt;!&ndash;        {{ name }}&ndash;&gt;-->
+<!--&lt;!&ndash;      </mat-option>&ndash;&gt;-->
+<!--&lt;!&ndash;    </mat-select>&ndash;&gt;-->
+<!--&lt;!&ndash;    <mat-error *ngIf="equipmentForm.get('status')?.invalid && equipmentForm.get('status')?.touched">&ndash;&gt;-->
+<!--&lt;!&ndash;      <div *ngIf="equipmentForm.get('status')?.hasError('required')">Status is required.</div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </mat-error>&ndash;&gt;-->
+<!--&lt;!&ndash;  </mat-form-field>&ndash;&gt;-->
+<!--&lt;!&ndash;  <mat-form-field appearance="fill">&ndash;&gt;-->
+<!--&lt;!&ndash;    <div *ngFor="let x of equipmentStatuses">&ndash;&gt;-->
+<!--&lt;!&ndash;      {{x}}&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </mat-form-field>&ndash;&gt;-->
+
+
+
+
+<!--  <div class="form-actions">-->
+<!--    <button mat-raised-button color="primary" type="submit" [disabled]="equipmentForm.invalid">Submit</button>-->
+<!--    <button mat-button (click)="close()">Cancel</button>-->
+<!--  </div>-->
+<!--</form>-->
+<!--</main>-->
+
+<!--<style>-->
+<!--  .equipment-form {-->
+<!--    display: flex;-->
+<!--    flex-direction: column;-->
+<!--    gap: 16px;-->
+<!--    padding: 16px;-->
+<!--    max-width: 600px;-->
+<!--    margin: auto;-->
+<!--    background-color: #f9f9f9;-->
+<!--    border-radius: 8px;-->
+<!--    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);-->
+<!--  }-->
+
+<!--  .mat-form-field {-->
+<!--    width: 100%;-->
+<!--  }-->
+
+<!--  .mat-form-field .mat-form-field-label {-->
+<!--    font-size: 16px;-->
+<!--  }-->
+
+<!--  .mat-error {-->
+<!--    color: #e94e77; /* Error color */-->
+<!--  }-->
+
+<!--  .form-actions {-->
+<!--    display: flex;-->
+<!--    justify-content: flex-end;-->
+<!--    gap: 8px;-->
+<!--  }-->
+
+<!--  button.mat-raised-button {-->
+<!--    padding: 8px 16px;-->
+<!--  }-->
+
+<!--  button.mat-button {-->
+<!--    padding: 8px 16px;-->
+<!--  }-->
+<!--</style>-->
+
 <form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="name">Name:</label>
-    <input id="name" formControlName="name" />
-    <div *ngIf="equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched">
-      <small *ngIf="equipmentForm.get('name')?.hasError('required')">Name is required.</small>
-      <small *ngIf="equipmentForm.get('name')?.hasError('minlength')">Name must be at least 3 characters long.</small>
+  <div class="form-field">
+    <label for="name">Name</label>
+    <input
+      id="name"
+      formControlName="name"
+      type="text"
+      placeholder="Enter name"
+    />
+    <div *ngIf="equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched" class="error-message">
+      <div *ngIf="equipmentForm.get('name')?.hasError('required')">Name is required.</div>
+      <div *ngIf="equipmentForm.get('name')?.hasError('minlength')">Name must be at least 3 characters long.</div>
     </div>
   </div>
 
-
-  <div>
-    <label for="description">Description:</label>
-    <textarea id="description" formControlName="description"></textarea>
+  <div class="form-field">
+    <label for="description">Description</label>
+    <textarea
+      id="description"
+      formControlName="description"
+      placeholder="Enter description"
+    ></textarea>
   </div>
 
-  <div>
-    <label for="status">Status:</label>
-    <select id="status" formControlName="status">
+  <div class="form-field">
+    <label for="status">Status</label>
+    <select
+      id="status"
+      formControlName="status"
+    >
       <option value="" disabled>Select Status</option>
-      <option *ngFor="let status of equipmentStatuses" [value]="status">
-        {{ status }}
-      </option>
+      <option *ngFor="let status of equipmentStatuses" [value]="status">{{ status }}</option>
     </select>
-    <div *ngIf="equipmentForm.get('status')?.invalid && equipmentForm.get('status')?.touched">
-      <small *ngIf="equipmentForm.get('status')?.hasError('required')">Status is required.</small>
+    <div *ngIf="equipmentForm.get('status')?.invalid && equipmentForm.get('status')?.touched" class="error-message">
+      <div *ngIf="equipmentForm.get('status')?.hasError('required')">Status is required.</div>
     </div>
   </div>
 
-  <button type="submit" [disabled]="equipmentForm.invalid">Submit</button>
+  <div class="form-actions">
+    <button type="submit" [disabled]="equipmentForm.invalid">Add Equipment</button>
+    <button type="button" (click)="close()">Cancel</button>
+  </div>
 </form>

@@ -9,6 +9,7 @@ import {NgForOf, NgIf} from "@angular/common";
 @Component({
   selector: 'app-update-equipment',
   templateUrl: './update-equipment.component.html',
+  styleUrls:['./update-equipment.component.scss'],
   standalone: true,
   imports: [
     NgIf,
@@ -54,7 +55,7 @@ export class UpdateEquipmentComponent implements OnInit {
   onSubmit(): void {
     if (this.equipmentForm.valid) {
       this.equipmentService.updateEquipment(this.equipmentId, this.equipmentForm.value).subscribe(() => {
-        this.router.navigate(['/equipments']);
+        this.router.navigate(['dashboard/equipments']);
       });
     } else {
       console.log('Form is invalid');
