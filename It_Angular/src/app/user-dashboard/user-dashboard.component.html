@@ -1,0 +1,55 @@
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <nav>
+      <ul>
+        <li><a routerLink="tickets" routerLinkActive="active">My Tickets</a></li>
+        <li><a routerLink="add-ticket" routerLinkActive="active">Create Ticket</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+<style>
+  .dashboard-container {
+    display: flex;
+    height: 100vh;
+  }
+
+  .sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  .sidebar ul li {
+    margin-bottom: 10px;
+  }
+
+  .sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .sidebar ul li a.active {
+    color: #007bff;
+  }
+
+  .content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+</style>

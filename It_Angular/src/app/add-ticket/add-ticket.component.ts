@@ -25,7 +25,7 @@ export class AddTicketComponent implements OnInit {
     this.ticketForm = this.fb.group({
       incidentId: [null, Validators.required],
       equipmentId: [null, Validators.required],
-      dateCreated: [new Date().toISOString().substring(0, 10), Validators.required], // Par défaut, la date du jour
+      dateCreated: [new Date().toISOString().substring(0, 10), Validators.required],
       description: ['', Validators.required]
     });
   }

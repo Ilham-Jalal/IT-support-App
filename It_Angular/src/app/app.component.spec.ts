@@ -17,6 +17,7 @@ describe('AppComponent', () => {
   it(`should have the 'It_Angular' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
+    // @ts-ignore
     expect(app.title).toEqual('It_Angular');
   });
 

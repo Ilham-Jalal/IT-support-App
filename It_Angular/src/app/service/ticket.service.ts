@@ -20,7 +20,7 @@ export class TicketService {
   }
 
   addTicket(ticketData: { incidentId: number, equipmentId: number, description: string }): Observable<Ticket> {
-    const userId = this.getUserId(); // Placeholder method to get user ID
+    const userId = this.getUserId();
     return this.http.post<Ticket>(`${this.baseUrl}/user/${userId}/tickets/${ticketData.equipmentId}`, ticketData);
   }
 
@@ -62,6 +62,6 @@ export class TicketService {
   }
 
   private getUserId(): number {
-    return 1; // Replace with actual logic to get the user ID
+    return 1;
   }
 }

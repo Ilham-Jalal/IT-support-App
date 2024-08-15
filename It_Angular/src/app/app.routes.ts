@@ -4,7 +4,6 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { DashTechnicianComponent } from "./dash-technician/dash-technician.component";
-import { DashUserComponent } from "./dash-user/dash-user.component";
 import { AuthGuardComponent } from "./auth-guard/auth-guard.component";
 import { Role } from "./enum/Role";
 import {AuthGuard} from "./service/autGuard.service";
@@ -17,18 +16,17 @@ import {CreateIncidentComponent} from "./create-incident/create-incident.compone
 import {IncidentUpdateComponent} from "./incident-update/incident-update.component";
 import {TicketListComponent} from "./ticket-list/ticket-list.component";
 import {AddTicketComponent} from "./add-ticket/add-ticket.component";
-import {AssignTicketComponent} from "./assign-ticket/assign-ticket.component";
 import {TicketListTechnicianComponent} from "./ticket-list-technician/ticket-list-technician.component";
 import {UpdateTicketStatusComponent} from "./update-ticket-status/update-ticket-status.component";
 import {UserListComponent} from "./user-list/user-list.component";
 import {TicketsAComponent} from "./tickets-a/tickets-a.component";
+import {UserDashboardComponent} from "./user-dashboard/user-dashboard.component";
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'signup', component: SignUpComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'technician', component: DashTechnicianComponent, canActivate: [AuthGuard], data: { expectedRole: Role.TECHNICIAN } },
-  { path: 'user', component: DashUserComponent, canActivate: [AuthGuard], data: { expectedRole: Role.USER } },
   { path: 'access-denied', component: AuthGuardComponent },
   { path: 'equipments', component: EquipmentListComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'add-equipment', component: AddEquipmentComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
@@ -41,7 +39,6 @@ export const routes: Routes = [
   { path: 'tickets', component: TicketListComponent, canActivate: [AuthGuard], data: { expectedRole: Role.USER } },
   { path: 'admin-tickets', component: TicketsAComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'add-ticket', component: AddTicketComponent, canActivate: [AuthGuard], data: { expectedRole: Role.USER } },
-  { path: 'assign', component: AssignTicketComponent, canActivate: [AuthGuard], data: { expectedRole: Role.ADMIN } },
   { path: 'technician-ticket', component: TicketListTechnicianComponent, canActivate: [AuthGuard], data: { expectedRole: Role.TECHNICIAN } },
   { path: 'technician-updateTicket/:id', component: UpdateTicketStatusComponent, canActivate: [AuthGuard], data: { expectedRole: Role.TECHNICIAN } },
   {
@@ -52,7 +49,6 @@ export const routes: Routes = [
       { path: 'equipments', component: EquipmentListComponent },
       { path: 'users', component: UserListComponent },
       { path: 'admin-tickets', component: TicketsAComponent},
-      { path: 'assign', component: AssignTicketComponent},
       { path: 'add-ticket', component: AddTicketComponent},
       { path: 'update-incidents/:id', component: IncidentUpdateComponent},
       { path: 'incidents', component: IncidentListComponent},
@@ -61,11 +57,17 @@ export const routes: Routes = [
       { path: 'add-equipment', component: AddEquipmentComponent},
       { path: 'signup', component: SignUpComponent},
 
-
-
     ]
   },
-
+  { path: 'user',
+    component: UserDashboardComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRole: Role.USER },
+    children:[
+      { path: 'add-ticket', component: AddTicketComponent},
+      { path: 'tickets', component: TicketListComponent},
+    ]
+  },
 
 ];
 

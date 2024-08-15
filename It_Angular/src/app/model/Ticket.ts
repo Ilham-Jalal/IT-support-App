@@ -15,4 +15,5 @@ export class Ticket {
   technician!: TechnicianIT;
   equipment?: Equipment;
   incident?: Incident;
+
 }

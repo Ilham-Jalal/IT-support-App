@@ -1,23 +1,115 @@
-<h2>Equipment List</h2>
-<table>
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Status</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let equipment of equipments">
-    <td>{{ equipment.name }}</td>
-    <td>{{ equipment.description }}</td>
-    <td>{{ equipment.status }}</td>
-    <td>
-      <button (click)="editEquipment(equipment.id)">Edit</button>
-      <button (click)="deleteEquipment(equipment.id)">Delete</button>
-    </td>
-  </tr>
-  </tbody>
-</table>
-<button routerLink="/add-equipment">Add New Equipment</button>
+<div class="dashboard-container">
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <h2>Equipment List</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let equipment of equipments">
+        <td>{{ equipment.name }}</td>
+        <td>{{ equipment.description }}</td>
+        <td>{{ equipment.status }}</td>
+        <td>
+          <button (click)="editEquipment(equipment.id)">Edit</button>
+          <button (click)="deleteEquipment(equipment.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <button class="add-new" routerLink="/add-equipment">Add New Equipment</button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 Support It. All rights reserved.</p>
+  </footer>
+</div>
+<style>
+  .dashboard-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  thead {
+    background-color: #4a90e2;
+    color: #fff;
+  }
+
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+
+  button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  button:hover {
+    background-color: #e94e77;
+  }
+
+  button.add-new {
+    background-color: #4a90e2;
+    margin-top: 20px;
+  }
+
+  button.add-new:hover {
+    background-color: #357abd;
+  }
+
+  .footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .footer p {
+    margin: 0;
+    font-size: 14px;
+  }
+
+</style>

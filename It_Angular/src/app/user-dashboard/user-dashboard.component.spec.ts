@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssignTicketComponent } from './assign-ticket.component';
+import { UserDashboardComponent } from './user-dashboard.component';
 
-describe('AssignTicketComponent', () => {
-  let component: AssignTicketComponent;
-  let fixture: ComponentFixture<AssignTicketComponent>;
+describe('UserDashboardComponent', () => {
+  let component: UserDashboardComponent;
+  let fixture: ComponentFixture<UserDashboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AssignTicketComponent]
+      imports: [UserDashboardComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AssignTicketComponent);
+    fixture = TestBed.createComponent(UserDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
