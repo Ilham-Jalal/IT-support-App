@@ -26,6 +26,11 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/admin/signup/${role}`, signUpRequest);
   }
 
+  logout(){
+    const token = localStorage.getItem('jwt');
+    localStorage.removeItem('jwt');
+  }
+
   getCurrentUserRole(): string | null {
     const token = localStorage.getItem('jwt');
     if (token) {

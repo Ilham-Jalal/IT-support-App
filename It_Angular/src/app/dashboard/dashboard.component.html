@@ -2,7 +2,6 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="header">
-      <img src="https://example.com/logo.png" alt="Logo" class="logo"/>
       <div class="header-text">Support It</div>
     </div>
 
@@ -47,6 +46,9 @@
             <img src="https://img.icons8.com/ios-filled/50/ffffff/settings.png" class="menu-icon" alt="Settings"/>
             <span>Menu Settings</span>
           </a>
+        </li>
+        <li (click)="logoutit()" style="background-color: #2980b9">
+          <button mat-button >logout</button>
         </li>
       </ul>
     </div>

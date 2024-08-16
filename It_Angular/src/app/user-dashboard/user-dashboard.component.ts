@@ -9,6 +9,8 @@ import { MatSidenav, MatSidenavContainer } from '@angular/material/sidenav';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
 import {AsyncPipe, NgClass} from '@angular/common';
+import {AuthService} from "../service/auth-service.service";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-user-dashboard',
@@ -26,7 +28,8 @@ import {AsyncPipe, NgClass} from '@angular/common';
     RouterLinkActive,
     NgClass,
     RouterLink,
-    AsyncPipe
+    AsyncPipe,
+    MatButton
   ],
   animations: [
     trigger('slideInOut', [
@@ -45,7 +48,7 @@ export class UserDashboardComponent implements OnInit {
   animationState = 'in'; // or 'out' based on your logic
   currentRoute$: Observable<string> | undefined;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService:AuthService) {}
 
   ngOnInit(): void {
     this.currentRoute$ = this.router.events.pipe(
@@ -56,5 +59,10 @@ export class UserDashboardComponent implements OnInit {
 
   navigateTo(path: string): void {
     this.router.navigate([path]);
+  }
+
+  logoutit(){
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }

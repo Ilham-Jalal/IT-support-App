@@ -5,6 +5,8 @@ import { filter, map } from 'rxjs/operators';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import {AsyncPipe, NgClass} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
+import {AuthService} from "../service/auth-service.service";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-dash-technician',
@@ -22,7 +24,8 @@ import {MatIcon} from "@angular/material/icon";
     NgClass,
     RouterLink,
     MatIcon,
-    AsyncPipe
+    AsyncPipe,
+    MatButton
   ],
   standalone: true
 })
@@ -30,7 +33,7 @@ export class DashTechnicianComponent implements OnInit {
   animationState = 'in'; // Adjust based on your logic
   currentRoute$: Observable<string> | undefined;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService:AuthService) {}
 
   ngOnInit(): void {
     this.currentRoute$ = this.router.events.pipe(
@@ -41,5 +44,10 @@ export class DashTechnicianComponent implements OnInit {
 
   navigateTo(path: string): void {
     this.router.navigate([path]);
+  }
+
+  logoutit(){
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }

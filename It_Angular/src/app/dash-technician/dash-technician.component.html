@@ -2,7 +2,6 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="header">
-      <img src="https://example.com/logo.png" alt="Logo" class="logo"/>
       <div class="header-text">Technician Dashboard</div>
     </div>
 
@@ -14,6 +13,9 @@
             <mat-icon>receipt</mat-icon>
             <span>Tickets</span>
           </a>
+        </li>
+        <li (click)="logoutit()" style="background-color: #2980b9">
+          <button mat-button >logout </button>
         </li>
       </ul>
     </div>
