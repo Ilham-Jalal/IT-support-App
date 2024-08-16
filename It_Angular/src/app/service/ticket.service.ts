@@ -11,7 +11,7 @@ import {TicketStatus} from "../enum/TicketStatus";
   providedIn: 'root'
 })
 export class TicketService {
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = 'http://localhost:8081';
 
   constructor(private http: HttpClient) { }
 

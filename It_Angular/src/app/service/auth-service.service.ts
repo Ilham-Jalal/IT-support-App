@@ -11,7 +11,7 @@ import {User} from "../model/User";
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'http://localhost:8081';
 
   constructor(
     private http: HttpClient,

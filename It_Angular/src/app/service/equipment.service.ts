@@ -8,7 +8,7 @@ import {Equipment} from "../model/Equipment";
 })
 export class EquipmentService {
 
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = 'http://localhost:8081';
 
   constructor(private http: HttpClient) {}
   getEquipmentById(id: number): Observable<Equipment> {

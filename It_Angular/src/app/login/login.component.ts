@@ -55,16 +55,16 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/user/home']);
             break;
           case Role.TECHNICIAN:
-            this.router.navigate(['/technician']);
+            this.router.navigate(['/technician/technician-ticket']);
             break;
           default:
-            console.log('Unknown role:', role); // Debugging
+            console.log('Unknown role:', role);
             this.router.navigate(['/access-denied']);
             break;
         }
       },
       error: (err) => {
-        console.error('Login error:', err); // Debugging
+        console.error('Login error:', err);
         this.errorMessage = 'Invalid username or password';
       }
     });

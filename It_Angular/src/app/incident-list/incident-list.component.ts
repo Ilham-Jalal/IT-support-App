@@ -34,7 +34,8 @@ export class IncidentListComponent implements OnInit {
 
   loadIncidents(): void {
     this.incidentService.getAllIncidents().subscribe(
-      (incidents: Incident[]) => this.incidents = incidents,
+      (incidents: Incident[]) => {this.incidents = incidents
+        console.log(incidents)},
       (error: any) => console.error('Error loading incidents', error)
     );
   }

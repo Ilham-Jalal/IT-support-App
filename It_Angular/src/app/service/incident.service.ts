@@ -9,7 +9,7 @@ import {Equipment} from "../model/Equipment";
 })
 export class IncidentService {
 
-  private apiUrl = `http://localhost:8080`;
+  private apiUrl = `http://localhost:8081`;
 
   constructor(private http: HttpClient) { }
   getAllIncidents(): Observable<Incident[]> {

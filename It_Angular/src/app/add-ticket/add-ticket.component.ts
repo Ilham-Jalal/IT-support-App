@@ -56,7 +56,7 @@ export class AddTicketComponent implements OnInit {
       this.ticketService.addTicket(this.ticketForm.value).subscribe(
         (newTicket: Ticket) => {
           console.log('Ticket ajouté', newTicket);
-          this.router.navigate(['/daschboard/tickets']);
+          this.router.navigate(['/user/tickets']);
         },
         (error) => {
           console.error('Erreur lors de l\'ajout du ticket', error);
