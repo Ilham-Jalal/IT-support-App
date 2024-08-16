@@ -22,6 +22,8 @@ public class Ticket {
     private Date dateCreated;
     @Enumerated(EnumType.STRING)
     private TicketStatus status;
+    @Column(nullable = false)
+    private boolean isAssigned;
 
     @ManyToOne
     @JsonIgnore

@@ -14,6 +14,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import {MatDialogModule} from "@angular/material/dialog";
 import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatIconModule} from "@angular/material/icon";
+import {DatePipe, NgClass, UpperCasePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -33,6 +36,12 @@ import { AddEquipmentComponent } from './add-equipment/add-equipment.component';
     BrowserAnimationsModule,
     MatDialogModule,
     AddEquipmentComponent,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    DatePipe,
+    NgClass,
+    UpperCasePipe
 
   ],
   providers: [

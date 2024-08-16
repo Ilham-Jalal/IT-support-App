@@ -1,18 +1,18 @@
-<div>
+<div class="form-container">
   <h2>Create Incident</h2>
   <form [formGroup]="incidentForm" (ngSubmit)="createIncident()">
-    <div>
+    <div class="form-group">
       <label for="description">Description:</label>
       <input id="description" formControlName="description" />
-      <div *ngIf="incidentForm.get('description')?.invalid && incidentForm.get('description')?.touched">
+      <div *ngIf="incidentForm.get('description')?.invalid && incidentForm.get('description')?.touched" class="error-message">
         Description is required.
       </div>
     </div>
-    <div>
+    <div class="form-group">
       <label for="dateDetected">Date Detected:</label>
       <input id="dateDetected" type="date" formControlName="dateDetected" />
     </div>
-    <div>
+    <div class="form-group">
       <label for="status">Status:</label>
       <select id="status" formControlName="status">
         <option *ngFor="let status of incidentStatuses | keyvalue" [value]="status.value">
@@ -20,6 +20,8 @@
         </option>
       </select>
     </div>
-    <button type="submit" [disabled]="incidentForm.invalid">Create Incident</button>
+    <button type="submit" [disabled]="incidentForm.invalid" mat-raised-button color="primary">
+      Create Incident
+    </button>
   </form>
 </div>

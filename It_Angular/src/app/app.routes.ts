@@ -51,12 +51,13 @@ export const routes: Routes = [
       { path: 'users', component: UserListComponent },
       { path: 'admin-tickets', component: TicketsAComponent},
       { path: 'add-ticket', component: AddTicketComponent},
-      { path: 'update-incidents/:id', component: IncidentUpdateComponent},
+      { path: 'incidents/update-incidents/:id', component: IncidentUpdateComponent},
       { path: 'incidents', component: IncidentListComponent},
       { path: 'incidentsByEQ', component: IncidentComponent},
       { path: 'equipments/edit-equipment/:id', component: UpdateEquipmentComponent},
       { path: 'equipments/add-equipment', component: AddEquipmentComponent },
       { path: 'users/signup', component: SignUpComponent},
+      { path: 'incidents/add-incidents', component: CreateIncidentComponent}
 
 
     ]
@@ -71,6 +72,18 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent},
     ]
   },
+
+  {path: 'technician',
+    component: DashTechnicianComponent,
+    canActivate: [AuthGuard],
+    data: { expectedRole: Role.TECHNICIAN } ,
+    children:[
+      {  path: 'technician-ticket', component: TicketListTechnicianComponent},
+      {path: 'technician-ticket/technician-updateTicket/:id', component: UpdateTicketStatusComponent},
+    ]
+  },
+
+
 
 ];
 

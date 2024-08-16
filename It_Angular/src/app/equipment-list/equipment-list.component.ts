@@ -11,6 +11,7 @@ import {MatButtonModule} from "@angular/material/button";
 @Component({
   selector: 'app-equipment-list',
   templateUrl: './equipment-list.component.html',
+  styleUrls:['equipment-list.component.scss'],
   standalone: true,
   imports: [
     CommonModule,

@@ -4,8 +4,7 @@ import { TicketService } from '../service/ticket.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TicketStatus } from "../enum/TicketStatus";
 import { NgForOf } from "@angular/common";
-import {Ticket} from "../model/Ticket";
-import {Incident} from "../model/Incident";
+import { Ticket } from "../model/Ticket";
 
 @Component({
   selector: 'app-update-ticket-status',
@@ -22,43 +21,37 @@ export class UpdateTicketStatusComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private ticketService: TicketService,
-  ) {
-  }
+    private ticketService: TicketService
+  ) {}
 
   ngOnInit(): void {
     this.ticketId = +this.route.snapshot.paramMap.get('id')!;
-    this.loadTicket();
     this.initForm();
+    this.loadTicket();
   }
+
   initForm(): void {
     this.statusForm = this.fb.group({
       status: ['', Validators.required]
     });
-    }
-
-
-  loadTicket(): void {
-    this.ticketService.getTicketById(this.ticketId).subscribe(
-      ticket => {
-        this.statusForm.patchValue({ status: ticket.status });
-      });
   }
 
-
-
+  loadTicket(): void {
+    this.ticketService.getTicketById(this.ticketId).subscribe(ticket => {
+      this.statusForm.patchValue({ status: ticket.status });
+    });
+  }
 
   onSubmit(): void {
     if (this.statusForm.valid) {
-      const updatedTicket: Ticket = { ...this.statusForm.value};
-
-      this.ticketService.updateTicketStatus(this.ticketId,updatedTicket).subscribe(
+      const status = this.statusForm.get('status')?.value as TicketStatus;
+      this.ticketService.updateTicketStatus(this.ticketId, status).subscribe(
         () => {
-          this.router.navigate(['/technician-ticket']);
+          this.router.navigate(['/technician/technician-ticket']);
         },
+        error => console.error('Error updating ticket status', error)
       );
     }
   }
-
 
 }

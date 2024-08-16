@@ -5,15 +5,26 @@ import { IncidentService } from '../service/incident.service'; // Assure-toi d'a
 import { IncidentStatus } from '../enum/IncidentStatus';
 import { NgIf, NgForOf } from '@angular/common';
 import { Incident } from '../model/Incident';
+import {MatButton} from "@angular/material/button";
+import {MatOption} from "@angular/material/autocomplete";
+import {MatFormField, MatLabel, MatSelect} from "@angular/material/select";
+import {MatInput} from "@angular/material/input";
 
 @Component({
   selector: 'app-incident-update',
   templateUrl: './incident-update.component.html',
+  styleUrls:['incident-update.component.scss'],
   standalone: true,
   imports: [
     NgIf,
     NgForOf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButton,
+    MatOption,
+    MatSelect,
+    MatLabel,
+    MatFormField,
+    MatInput
   ]
 })
 export class IncidentUpdateComponent implements OnInit {
@@ -54,7 +65,7 @@ export class IncidentUpdateComponent implements OnInit {
     if (this.incidentForm.valid) {
       const updatedIncident: Incident = { ...this.incidentForm.value, id: this.incidentId };
       this.incidentService.updateIncident(this.incidentId, updatedIncident).subscribe(() => {
-        this.router.navigate(['/incidents']);
+        this.router.navigate(['/dashboard/incidents']);
       });
     } else {
       console.log('Form is invalid');

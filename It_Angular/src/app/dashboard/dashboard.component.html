@@ -9,16 +9,12 @@
     <div class="menu">
       <h2>Dashboard</h2>
       <ul>
-        <li [ngClass]="{'active': (currentRoute$ | async) === '/dashboard'}">
-          <a routerLink="/dashboard">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" class="menu-icon" alt="Home"/>
-            <span>Home</span>
-          </a>
-        </li>
 
-        <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <li [ngClass]="{'active': (currentRoute$ | async) === '/dashboard/equipments'}">
           <a routerLink="/dashboard/equipments">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/tools.png" class="menu-icon" alt="Equipments"/>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="menu-icon">
+              <path d="M4.5 2a.75.75 0 0 1 .75.75v6a.75.75 0 0 1-1.5 0v-6A.75.75 0 0 1 4.5 2zM15 2a.75.75 0 0 1 .75.75v6a.75.75 0 0 1-1.5 0v-6A.75.75 0 0 1 15 2zM4.5 8.25a.75.75 0 0 1 .75.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 .75-.75zM15 8.25a.75.75 0 0 1 .75.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 .75-.75z"/>
+            </svg>
             <span>Equipments</span>
           </a>
         </li>
@@ -30,10 +26,11 @@
             <span>Users</span>
           </a>
         </li>
-
         <li [ngClass]="{'active': (currentRoute$ | async) === '/dashboard/incidents'}">
           <a routerLink="/dashboard/incidents">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/incident.png" class="menu-icon" alt="Incidents"/>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="menu-icon">
+              <path d="M12 3a9 9 0 0 0-9 9h2a7 7 0 1 1 7 7v2a9 9 0 0 0 0-18z"/>
+            </svg>
             <span>Incidents</span>
           </a>
         </li>
@@ -63,90 +60,3 @@
 </div>
 
 
-<style>
-  .dashboard-container {
-    display: flex;
-  }
-
-  .sidebar {
-    background-color: #333;
-    width: 260px;
-    max-width: 100%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .logo {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-  }
-
-  .header-text {
-    color: #fff;
-    font: 700 22px 'Arial', sans-serif;
-  }
-
-  .menu {
-    flex-grow: 1;
-  }
-
-  .menu h2 {
-    color: #fff;
-    font: 700 18px 'Arial', sans-serif;
-    margin-bottom: 20px;
-  }
-
-  .menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .menu li {
-    margin-bottom: 20px;
-  }
-
-  .menu a {
-    color: #fff;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-
-  .menu-icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .menu li.active a {
-    font-weight: bold;
-    color: #e64a19;
-  }
-
-  .menu a:hover {
-    background-color: #ff4081;
-  }
-
-  .menu li.active .menu-icon {
-    filter: brightness(0) invert(1);
-  }
-
-  .main-content {
-    flex-grow: 1;
-    padding: 20px;
-    background-color: #f4f4f4;
-  }
-
-</style>

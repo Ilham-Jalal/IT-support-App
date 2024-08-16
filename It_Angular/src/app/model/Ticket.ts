@@ -1,10 +1,8 @@
-import {TicketStatus} from "../enum/TicketStatus";
-import {Utilisateur} from "./Utilisateur";
-import {User} from "./User";
-import {Equipment} from "./Equipment";
-import {Incident} from "./Incident";
-import {TechnicianIT} from "./TechnicianIT";
-
+import { TicketStatus } from "../enum/TicketStatus";
+import { Utilisateur } from "./Utilisateur";
+import { TechnicianIT } from "./TechnicianIT";
+import { Equipment } from "./Equipment";
+import { Incident } from "./Incident";
 
 export class Ticket {
   id!: number;
@@ -16,4 +14,7 @@ export class Ticket {
   equipment?: Equipment;
   incident?: Incident;
 
+  get isAssigned(): boolean {
+    return this.technician != null;
+  }
 }

@@ -34,10 +34,11 @@ public class TicketController {
     }
 
     @PutMapping("admin/tickets/{id}/assign/{userId}")
-    public ResponseEntity<List<Ticket>> assignTicket(@PathVariable Long id, @PathVariable Long userId) {
-        List<Ticket> ticketList = ticketService.assignTicket(id, userId);
-        return ResponseEntity.ok(ticketList);
+    public ResponseEntity<Ticket> assignTicket(@PathVariable Long id, @PathVariable Long userId) {
+        Ticket ticket = ticketService.assignTicket(id, userId);
+        return ResponseEntity.ok(ticket);
     }
+
 
     @GetMapping("user/tickets")
     public ResponseEntity<List<Ticket>> getTicketsByUser() {

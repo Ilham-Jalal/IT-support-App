@@ -1,91 +1,38 @@
 <div class="dashboard-container">
-  <!-- Header -->
-  <header class="header">
-    <h1>Dashboard</h1>
-    <div class="header-right">
-      <a routerLink="/logout">Logout</a>
-    </div>
-  </header>
-
   <!-- Sidebar -->
-  <aside class="sidebar">
-    <nav>
+  <div class="sidebar">
+    <div class="header">
+      <img src="https://example.com/logo.png" alt="Logo" class="logo"/>
+      <div class="header-text">Support It</div>
+    </div>
+
+    <div class="menu">
+      <h2>Dashboard</h2>
       <ul>
-        <li><a routerLink="home" routerLinkActive="active">Home</a></li>
-        <li><a routerLink="tickets" routerLinkActive="active">My Tickets</a></li>
-        <li><a routerLink="add-ticket" routerLinkActive="active">Create Ticket</a></li>
+        <li [ngClass]="{'active': (currentRoute$ | async) === '/user/home'}">
+          <a routerLink="/user/home">
+            <mat-icon>home</mat-icon>
+            <span>Home</span>
+          </a>
+        </li>
+        <li [ngClass]="{'active': (currentRoute$ | async) === '/user/tickets'}">
+          <a routerLink="/user/tickets">
+            <mat-icon>receipt</mat-icon>
+            <span>Tickets</span>
+          </a>
+        </li>
+        <li [ngClass]="{'active': (currentRoute$ | async) === '/user/add-ticket'}">
+          <a routerLink="/user/add-ticket">
+            <mat-icon>add_circle</mat-icon>
+            <span>Create Ticket</span>
+          </a>
+        </li>
       </ul>
-    </nav>
-  </aside>
+    </div>
+  </div>
 
   <!-- Main Content Area -->
-  <main class="content">
+  <div class="main-content">
     <router-outlet></router-outlet>
-  </main>
+  </div>
 </div>
-
-<style>
-  .dashboard-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-  }
-
-  .header {
-    background-color: #0056b3; /* Deep blue */
-    color: white;
-    padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .header h1 {
-    margin: 0;
-    font-size: 1.5em;
-  }
-
-  .header-right a {
-    color: white;
-    text-decoration: none;
-    margin-left: 15px;
-    font-weight: bold;
-  }
-
-  .header-right a:hover {
-    text-decoration: underline;
-  }
-
-  .sidebar {
-    width: 200px;
-    background-color: #f8f9fa; /* Light gray */
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  }
-
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  .sidebar ul li {
-    margin-bottom: 10px;
-  }
-
-  .sidebar ul li a {
-    text-decoration: none;
-    color: #333; /* Dark gray */
-    font-weight: bold;
-  }
-
-  .sidebar ul li a.active {
-    color: #007bff; /* Bright blue */
-  }
-
-  .content {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-  }
-</style>

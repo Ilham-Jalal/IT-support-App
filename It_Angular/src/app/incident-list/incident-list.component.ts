@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { IncidentService } from '../service/incident.service';
 import { Incident } from '../model/Incident';
-import {Router, RouterLink} from "@angular/router";
-import {DatePipe, NgClass, NgForOf, UpperCasePipe} from "@angular/common";
+import { Router } from '@angular/router';
+import { DatePipe, NgClass, UpperCasePipe } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { IncidentStatus } from '../enum/IncidentStatus';
 
 @Component({
   selector: 'app-incident-list',
@@ -10,15 +14,17 @@ import {DatePipe, NgClass, NgForOf, UpperCasePipe} from "@angular/common";
   styleUrls: ['./incident-list.component.scss'],
   standalone: true,
   imports: [
-    NgForOf,
-    NgClass,
-    UpperCasePipe,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
     DatePipe,
-    RouterLink
+    NgClass,
+    UpperCasePipe
   ]
 })
 export class IncidentListComponent implements OnInit {
   incidents: Incident[] = [];
+  displayedColumns: string[] = ['id', 'description', 'status', 'date', 'edit', 'delete'];
 
   constructor(private incidentService: IncidentService, private router: Router) {}
 
@@ -33,6 +39,21 @@ export class IncidentListComponent implements OnInit {
     );
   }
 
+  getStatusClass(status: string): string {
+    switch (status) {
+      case IncidentStatus.REPORTED:
+        return 'status-reported';
+      case IncidentStatus.IN_PROGRESS:
+        return 'status-in-progress';
+      case IncidentStatus.RESOLVED:
+        return 'status-resolved';
+      case IncidentStatus.CLOSED:
+        return 'status-closed';
+      default:
+        return '';
+    }
+  }
+
   deleteIncident(id: number): void {
     this.incidentService.deleteIncident(id).subscribe(
       () => {
@@ -43,10 +64,9 @@ export class IncidentListComponent implements OnInit {
   }
 
   editIncident(id: number): void {
-    this.router.navigate(['/update-incidents', id]);
+    this.router.navigate(['/dashboard/incidents/update-incidents', id]);
   }
-
-  getStatusClass(status: string): string {
-    return `status-${status.replace(/\s+/g, '_').toLowerCase()}`;
+  addIncident(): void {
+    this.router.navigate(['/dashboard/incidents/add-incidents']); // Adjust this route to your actual incident creation form
   }
 }

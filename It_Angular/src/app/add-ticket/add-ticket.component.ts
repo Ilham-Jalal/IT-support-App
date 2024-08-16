@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Equipment} from "../model/Equipment";
-import {Incident} from "../model/Incident";
-import {TicketService} from "../service/ticket.service";
-import {Ticket} from "../model/Ticket";
-import {NgForOf} from "@angular/common";
-import {Router} from "@angular/router";
+import { Equipment } from '../model/Equipment';
+import { Incident } from '../model/Incident';
+import { TicketService } from '../service/ticket.service';
+import { Ticket } from '../model/Ticket';
+import { Router } from '@angular/router';
+import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-add-ticket',
   templateUrl: './add-ticket.component.html',
+  styleUrls: ['./add-ticket.component.scss'],
   standalone: true,
   imports: [
     NgForOf,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIf
   ]
 })
 export class AddTicketComponent implements OnInit {
@@ -21,7 +23,7 @@ export class AddTicketComponent implements OnInit {
   equipments: Equipment[] = [];
   incidents: Incident[] = [];
 
-  constructor(private fb: FormBuilder, private ticketService: TicketService, private router:Router) {
+  constructor(private fb: FormBuilder, private ticketService: TicketService, private router: Router) {
     this.ticketForm = this.fb.group({
       incidentId: [null, Validators.required],
       equipmentId: [null, Validators.required],
@@ -54,12 +56,18 @@ export class AddTicketComponent implements OnInit {
       this.ticketService.addTicket(this.ticketForm.value).subscribe(
         (newTicket: Ticket) => {
           console.log('Ticket ajouté', newTicket);
-          this.router.navigate(['/tickets']);
+          this.router.navigate(['/daschboard/tickets']);
         },
         (error) => {
           console.error('Erreur lors de l\'ajout du ticket', error);
         }
       );
     }
+  }
+
+  // Utility method to check if a form control has errors
+  hasError(controlName: string, errorName: string): boolean {
+    const control = this.ticketForm.get(controlName);
+    return control ? control.hasError(errorName) && (control.dirty || control.touched) : false;
   }
 }

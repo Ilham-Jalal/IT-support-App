@@ -1,0 +1,57 @@
+.ticket-list {
+  margin-top: 20px;
+
+  table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #34495e;
+      color: #ecf0f1;
+    }
+
+    td {
+      background-color: #ffffff;
+    }
+  }
+
+  .ticket-description {
+    font-weight: bold;
+  }
+
+  .status {
+    font-weight: bold;
+  }
+
+  .footer {
+    margin-top: 20px;
+  }
+}
+.status {
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #fff; /* Text color for contrast */
+}
+
+.status-open {
+  background-color: #2ecc71; /* Green for Open */
+}
+
+.status-in-progress {
+  background-color: #f39c12; /* Orange for In Progress */
+}
+
+.status-closed {
+  background-color: #e74c3c; /* Red for Closed */
+}
+
+.status-pending {
+  background-color: #3498db; /* Blue for Pending */
+}

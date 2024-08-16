@@ -5,7 +5,7 @@ import { Ticket } from "../model/Ticket";
 import { Equipment } from "../model/Equipment";
 import { Incident } from "../model/Incident";
 import { User } from "../model/User";
-import { TicketStatus } from "../enum/TicketStatus";
+import {TicketStatus} from "../enum/TicketStatus";
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +41,8 @@ export class TicketService {
     return this.http.get<Ticket[]>(`${this.baseUrl}/technician/tickets`);
   }
 
-  assignTicket(ticketId: number, userId: number): Observable<Ticket[]> {
-    return this.http.put<Ticket[]>(`${this.baseUrl}/admin/tickets/${ticketId}/assign/${userId}`, {});
+  assignTicket(ticketId: number, userId: number): Observable<Ticket> {
+    return this.http.put<Ticket>(`${this.baseUrl}/admin/tickets/${ticketId}/assign/${userId}`, {});
   }
 
   getTicketsByAdmin(): Observable<Ticket[]> {
@@ -53,8 +53,8 @@ export class TicketService {
     return this.http.get<User[]>(`${this.baseUrl}/admin/users`);
   }
 
-  public updateTicketStatus(id:number,ticket:Ticket): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/technician/tickets/${id}`,ticket);
+  updateTicketStatus(id: number, status: TicketStatus): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/technician/tickets/${id}`, { status });
   }
 
   getTicketById(ticketId: number): Observable<Ticket> {
@@ -62,6 +62,7 @@ export class TicketService {
   }
 
   private getUserId(): number {
+    // This should be replaced with the actual logic to retrieve the user's ID
     return 1;
   }
 }

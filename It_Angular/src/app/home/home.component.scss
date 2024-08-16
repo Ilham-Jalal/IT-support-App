@@ -1,0 +1,46 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background-color: #f4f4f4;
+  height: calc(100vh - 64px); /* Adjust based on toolbar height */
+
+  .welcome-section {
+    text-align: center;
+    margin-bottom: 32px;
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    .info-card {
+      margin-top: 16px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .statistics {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    .stat-card {
+      flex: 1;
+      min-width: 300px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+      mat-card-header {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+}

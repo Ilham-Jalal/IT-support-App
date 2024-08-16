@@ -49,15 +49,18 @@ public class TicketService {
     }
 
 
-    public List<Ticket> assignTicket(Long id, Long userId) {
-        Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new TicketExeptionNotFound("Ticket not found"));
-        TechnicianIT technician = userRepository.findById(userId)
+    public Ticket assignTicket(Long ticketId, Long technicianId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new TicketExeptionNotFound("Ticket not found"));
+        TechnicianIT technician = userRepository.findById(technicianId)
                 .filter(TechnicianIT.class::isInstance)
                 .map(TechnicianIT.class::cast)
                 .orElseThrow(() -> new TechnicianExeptionNotFound("Technician not found"));
         ticket.setTechnician(technician);
-        return Collections.singletonList(ticketRepository.save(ticket));
+        ticket.setAssigned(true);
+        return ticketRepository.save(ticket);
     }
+
 
     public List<Ticket> getTicketsByUser(Long userId) {
         return ticketRepository.findByUtilisateur_Id(userId);

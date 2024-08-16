@@ -5,6 +5,7 @@ import { IncidentService } from '../service/incident.service';
 import { Incident } from '../model/Incident';
 import { IncidentStatus } from '../enum/IncidentStatus';
 import {DatePipe, KeyValuePipe, NgForOf, NgIf} from '@angular/common';
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-create-incident',
@@ -14,7 +15,8 @@ import {DatePipe, KeyValuePipe, NgForOf, NgIf} from '@angular/common';
     KeyValuePipe,
     DatePipe,
     NgForOf,
-    NgIf
+    NgIf,
+    MatButton
   ],
   templateUrl: './create-incident.component.html',
   styleUrls: ['./create-incident.component.scss']
@@ -42,7 +44,7 @@ export class CreateIncidentComponent implements OnInit {
       const incident: Incident = this.incidentForm.value;
       this.incidentService.createIncident(incident).subscribe(
         () => {
-          this.router.navigate(['/incidents']);
+          this.router.navigate(['/dashboard/incidents']);
         }
       );
     }

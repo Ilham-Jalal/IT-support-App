@@ -1,1 +1,32 @@
-<p>dash-technician works!</p>
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="header">
+      <img src="https://example.com/logo.png" alt="Logo" class="logo"/>
+      <div class="header-text">Technician Dashboard</div>
+    </div>
+
+    <div class="menu">
+      <h2>Dashboard</h2>
+      <ul>
+        <li [ngClass]="{'active': (currentRoute$ | async) === '/technician/technician-ticket'}">
+          <a routerLink="/technician/technician-ticket">
+            <mat-icon>receipt</mat-icon>
+            <span>Tickets</span>
+          </a>
+        </li>
+        <li [ngClass]="{'active': (currentRoute$ | async) === '/technician/technician-updateTicket'}">
+          <a routerLink="/technician/technician-updateTicket">
+            <mat-icon>update</mat-icon>
+            <span>Update Ticket</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

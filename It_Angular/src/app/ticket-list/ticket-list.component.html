@@ -1,12 +1,36 @@
-<div>
-  <h2>Liste des Tickets</h2>
-  <ul>
-    <li *ngFor="let ticket of tickets">
-      <p>ID: {{ ticket.id }}</p>
-      <p>Description: {{ ticket.description }}</p>
-      <p>Date Création: {{ ticket.dateCreated | date:'short' }}</p>
-      <p>Status: {{ ticket.status }}</p>
+<mat-toolbar color="primary">
+  <span>Liste des Tickets</span>
+</mat-toolbar>
 
-    </li>
-  </ul>
+<div class="ticket-list">
+  <table mat-table [dataSource]="tickets" class="mat-elevation-z8">
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let ticket">
+        <div class="ticket-description">{{ ticket.description }}</div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let ticket">
+        <span class="status" [ngClass]="getStatusClass(ticket.status)">{{ ticket.status }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let ticket">
+        {{ ticket.dateCreated | date: 'fullDate' }}
+      </td>
+    </ng-container>
+
+    <!-- Remove the 'action' column -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>
+
+<mat-toolbar color="primary" class="footer">
+  <span>&copy; 2024 Votre Entreprise. Tous droits réservés.</span>
+</mat-toolbar>

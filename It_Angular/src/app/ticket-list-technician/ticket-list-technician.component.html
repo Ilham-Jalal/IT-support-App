@@ -5,8 +5,19 @@
       <p>ID: {{ ticket.id }}</p>
       <p>Description: {{ ticket.description }}</p>
       <p>Date Création: {{ ticket.dateCreated | date:'short' }}</p>
-      <p>Status: {{ ticket.status }}</p>
+      <p>Status: <span [ngClass]="getStatusClass(ticket.status)">{{ ticket.status }}</span></p>
       <button (click)="editTicket(ticket.id)">Edit</button>
     </li>
   </ul>
+
+  <div *ngIf="selectedTicketId !== undefined" class="status-form">
+    <h2>Modifier le Statut du Ticket</h2>
+    <form [formGroup]="statusForm" (ngSubmit)="onSubmit()">
+      <label for="status">Statut:</label>
+      <select id="status" formControlName="status">
+        <option *ngFor="let status of ticketStatus" [value]="status">{{ status }}</option>
+      </select>
+      <button type="submit">Mettre à jour</button>
+    </form>
+  </div>
 </div>

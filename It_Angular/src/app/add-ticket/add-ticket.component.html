@@ -1,22 +1,42 @@
-<div>
+<div class="add-ticket-container">
   <h2>Ajouter un Ticket</h2>
-  <form [formGroup]="ticketForm" (ngSubmit)="addTicket()">
-    <label for="incidentId">Incident:</label>
-    <select id="incidentId" formControlName="incidentId">
-      <option *ngFor="let incident of incidents" [value]="incident.id">{{ incident.description }}</option>
-    </select>
+  <form [formGroup]="ticketForm" (ngSubmit)="addTicket()" class="ticket-form">
+    <div class="form-group">
+      <label for="incidentId">Incident:</label>
+      <select id="incidentId" formControlName="incidentId" class="form-control">
+        <option *ngFor="let incident of incidents" [value]="incident.id">{{ incident.description }}</option>
+      </select>
+      <div *ngIf="hasError('incidentId', 'required')" class="error-message">
+        <small>Incident is required.</small>
+      </div>
+    </div>
 
-    <label for="equipmentId">Équipement:</label>
-    <select id="equipmentId" formControlName="equipmentId">
-      <option *ngFor="let equipment of equipments" [value]="equipment.id">{{ equipment.name }}</option>
-    </select>
+    <div class="form-group">
+      <label for="equipmentId">Équipement:</label>
+      <select id="equipmentId" formControlName="equipmentId" class="form-control">
+        <option *ngFor="let equipment of equipments" [value]="equipment.id">{{ equipment.name }}</option>
+      </select>
+      <div *ngIf="hasError('equipmentId', 'required')" class="error-message">
+        <small>Equipment is required.</small>
+      </div>
+    </div>
 
-    <label for="dateCreated">Date:</label>
-    <input type="date" id="dateCreated" formControlName="dateCreated">
+    <div class="form-group">
+      <label for="dateCreated">Date:</label>
+      <input type="date" id="dateCreated" formControlName="dateCreated" class="form-control">
+      <div *ngIf="hasError('dateCreated', 'required')" class="error-message">
+        <small>Date is required.</small>
+      </div>
+    </div>
 
-    <label for="description">Description:</label>
-    <textarea id="description" formControlName="description"></textarea>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" formControlName="description" class="form-control"></textarea>
+      <div *ngIf="hasError('description', 'required')" class="error-message">
+        <small>Description is required.</small>
+      </div>
+    </div>
 
-    <button type="submit" [disabled]="ticketForm.invalid">Ajouter</button>
+    <button type="submit" class="submit-button" [disabled]="ticketForm.invalid">Ajouter</button>
   </form>
 </div>

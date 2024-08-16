@@ -1,51 +1,43 @@
-// tickets-a.component.ts
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import {Ticket} from "../model/Ticket";
-import {User} from "../model/User";
-import {TicketService} from "../service/ticket.service";
-import {TicketStatus} from "../enum/TicketStatus";
-import {MatToolbar} from "@angular/material/toolbar";
+import { Ticket } from "../model/Ticket";
+import { User } from "../model/User";
+import { TicketService } from "../service/ticket.service";
+import { TicketStatus } from "../enum/TicketStatus";
 import {
   MatCell,
   MatCellDef,
   MatColumnDef,
   MatHeaderCell,
   MatHeaderCellDef,
-  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
-  MatTable
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef, MatTable
 } from "@angular/material/table";
 import {DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
-import {MatButton, MatIconButton} from "@angular/material/button";
-import {MatIcon} from "@angular/material/icon";
+import {MatToolbar} from "@angular/material/toolbar";
 
 @Component({
   selector: 'app-tickets-a',
   templateUrl: './tickets-a.component.html',
   standalone: true,
   imports: [
-    MatToolbar,
-    MatTable,
-    MatColumnDef,
-    MatHeaderCell,
-    MatHeaderCellDef,
-    MatCell,
-    MatCellDef,
-    NgClass,
-    DatePipe,
-    MatIconButton,
-    MatIcon,
     MatHeaderRow,
-    MatHeaderRowDef,
+    NgIf,
+    MatCell,
+    NgClass,
+    MatHeaderCell,
+    MatColumnDef,
+    MatCellDef,
+    MatHeaderCellDef,
     MatRow,
     MatRowDef,
-    NgIf,
+    MatHeaderRowDef,
     ReactiveFormsModule,
+    MatToolbar,
     NgForOf,
-    MatButton
+    DatePipe,
+    MatTable
   ],
   styleUrls: ['./tickets-a.component.scss']
 })
